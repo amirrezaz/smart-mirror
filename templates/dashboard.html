@@ -1,0 +1,46 @@
+<!doctype html>
+<html ng-app="app">
+  <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+      <script type="text/javascript" src="{{ url_for('static', filename='angular.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='Chart.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='angular-chart.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='ui-bootstrap-tpls-2.5.0.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='numeral.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='count-to.js') }}"></script>
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-chart/1.0.0-beta.1/ng-google-chart.min.js" type="text/javascript"></script>
+
+
+      <script type="text/javascript" src="{{ url_for('static', filename='dashboard.js') }}"></script>
+  </head>
+  <body ng-controller="BarCtrl">
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm text-center">
+        <h4>Total Active Registrants</h4>
+        <img src="{{ url_for('static', filename='h6viz.gif') }}" ng-show="show_total_active_logged">
+        <h2>[[ total_active_logged ]]</h2>
+        <uib-progressbar value="55"></uib-progressbar>
+    </div>
+    <div class="col-sm text-center">
+        <h4>Yesterday's registrations</h4>
+        <img src="{{ url_for('static', filename='h6viz.gif') }}" ng-show="show_yesterday_registrations">
+        <h2>[[ yesterday_registrations ]]</h2>
+    </div>
+    <div class="col-sm text-center">
+        <h4>Yesterday's subscriptions</h4>
+        <h2>176</h2>
+    </div>
+  </div>
+</div>
+    <img src="{{ url_for('static', filename='h6viz.gif') }}" ng-show="show_monthly_registrations">
+    <div google-chart chart="myChartObject" style="height:600px;width:100%;"></div>
+    <canvas id="bar" class="chart chart-bar"
+        chart-data="data" chart-labels="labels" chart-series="series">
+    </canvas>
+  </body>
+</html>
