@@ -19,7 +19,7 @@
             <div class="title-day">{{ today }} statistics</div>
         </div>
          <div class="active-reg">
-              <div class="title">Total Active Registrants</div>
+              <div class="title">Total Active Registrants <img ng-show="show_total_active_logged" style="float:right" src="{{ url_for('static', filename='spinner.svg') }}"/></div>
               <div class="subtitle">Active in the last 12 months</div>
 
              <div style="display:flex;margin-top:10px;margin-bottom:10px;">
@@ -32,7 +32,7 @@
           </div>
 
           <div class="yesterday-reg">
-              <div class="title">Yesterday's registrations</div>
+              <div class="title">Yesterday's registrations  <img ng-show="show_yesterday_registrations" style="float:right" src="{{ url_for('static', filename='spinner.svg') }}"/></div>
               <div style="display:flex;margin-top:10px;margin-bottom:10px;">
                   <div class="value" style="flex:1">[[ yesterday_registrations ]]</div>
                   <div style="align-self: flex-end;" class="data-source">Source: SAM</div>
@@ -46,7 +46,7 @@
           </div>
 
           <div class="yesterday-sub">
-              <div class="title">Yesterday's subscriptions</div>
+              <div class="title">Yesterday's subscriptions  <img ng-show="show_yesterday_subscriptions" style="float:right" src="{{ url_for('static', filename='spinner.svg') }}"/></div>
               <div style="display:flex;margin-top:10px;margin-bottom:10px;">
                   <div class="value" style="flex:1">[[ yesterday_subscriptions ]]</div>
                   <div style="align-self: flex-end;" class="data-source">Source: Starship</div>
@@ -60,7 +60,7 @@
           </div>
 
           <div class="monthly-reg">
-              <div class="title">Registration Acquisitions</div>
+              <div class="title">Registration Acquisitions <img ng-show="show_monthly_registrations" style="float:right" src="{{ url_for('static', filename='spinner.svg') }}"/></div>
 
                   <barchart height="400" data="monthly_registrations_data"></barchart>
 

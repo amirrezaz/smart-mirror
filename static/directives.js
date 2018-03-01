@@ -84,7 +84,9 @@ app.directive('barchart', [function () {
           'color': 'white',
           'padding': '0 15px 0 15px',
           'box-sizing': 'border-box',
-          'background-color': 'rgba(12, 54, 74, 0.2)'
+          'background-color': 'rgba(12, 54, 74, 0.2)',
+          'border-left': '4px solid #0C364A',
+          'border-right': '4px solid #0C364A',
         };
 
         scope.label_style = {
@@ -92,8 +94,13 @@ app.directive('barchart', [function () {
           'display': 'flex',
           'justify-content': 'center',
           'font-size': '20px',
-          'text-align': 'center'
+          'text-align': 'center',
+          'flex-direction': 'column'
         };
+
+        scope.label_year_style = {
+            'font-size': '16px'
+        }
 
         scope.number_label_style = {
           'flex': '1',
@@ -114,6 +121,8 @@ app.directive('barchart', [function () {
           'align-items': 'flex-end',
           'padding-left': '30px',
           'padding-right': '30px',
+          'border-left': '4px solid #0C364A',
+          'border-right': '4px solid #0C364A',
           'background-image': "repeating-linear-gradient(" +
           "transparent," +
           "transparent "+ scope.height / 10 +"px," +

@@ -35,7 +35,7 @@ app.controller("BarCtrl", function ($scope, $http, $interval, $timeout) {
 
     $http({
         method : "GET",
-        url : "/total_active_loggeds"
+        url : "/total_active_logged"
     }).then(function mySuccess(response) {
         $scope.show_total_active_logged = false;
         $scope.total_active_logged = response.data.total_active_logged;
@@ -44,12 +44,13 @@ app.controller("BarCtrl", function ($scope, $http, $interval, $timeout) {
 
 
     }, function myError(response) {
-        $scope.total_active_logged = 0
+        $scope.total_active_logged = 0;
+        $scope.show_total_active_logged = false;
     });
 
     $http({
         method : "GET",
-        url : "/seven_days_registrationss"
+        url : "/seven_days_registrations"
     }).then(function mySuccess(response) {
 
         $scope.show_yesterday_registrations = false;
@@ -62,13 +63,14 @@ app.controller("BarCtrl", function ($scope, $http, $interval, $timeout) {
         });
 
     }, function myError(response) {
-        $scope.yesterday_registrations = 0
+        $scope.yesterday_registrations = 0;
+        $scope.show_yesterday_registrations = false;
     });
 
 
     $http({
         method : "GET",
-        url : "/seven_days_subscriptionss"
+        url : "/seven_days_subscriptions"
     }).then(function mySuccess(response) {
 
         $scope.show_yesterday_subscriptions = false;
@@ -81,7 +83,9 @@ app.controller("BarCtrl", function ($scope, $http, $interval, $timeout) {
         });
 
     }, function myError(response) {
-        $scope.yesterday_subscriptions = 0
+        $scope.yesterday_subscriptions = 0;
+        $scope.show_yesterday_subscriptions = false;
+
     });
 
 
@@ -96,7 +100,8 @@ app.controller("BarCtrl", function ($scope, $http, $interval, $timeout) {
         $scope.monthly_registrations_data = response.data.monthly_registrations;
 
     }, function myError(response) {
-        $scope.monthly_registrations = []
+        $scope.monthly_registrations = [];
+        $scope.show_monthly_registrations = false;
     });
 
 })
