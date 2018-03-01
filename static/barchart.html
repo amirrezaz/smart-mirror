@@ -1,0 +1,18 @@
+<div ng-style="bar_chart_container_style">
+  <div ng-style="y_axis_style"></div>
+  <div ng-style="x_container_style">
+      <div ng-style="x_axis_top_style">
+          <div ng-repeat="bar in bars"  ng-style="number_label_style">[[ bar.value]]</div>
+      </div>
+      <div ng-style="bars_container_style">
+          <div ng-repeat="bar in bars" ng-style="bar.container_style">
+              <div ng-style="bar.style"></div>
+          </div>
+      </div>
+      <div ng-style="x_axis_style">
+          <div ng-repeat="bar in bars" ng-style="label_style">[[ bar.label_month ]]<br>[[ bar.label_year ]]</div>
+      </div>
+  </div>
+    <div ng-style="y_axis_style"></div>
+
+</div>

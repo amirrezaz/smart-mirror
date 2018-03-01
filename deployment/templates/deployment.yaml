@@ -1,0 +1,63 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment_name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application_name }}
+    spec:
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: {{ .Values.serivce_account_credentials_name }}
+      - name: {{ .Values.cloudsql_instance_credentials_name }}
+        secret:
+          secretName: {{ .Values.cloudsql_instance_credentials_name }}
+      - name: cloudsql
+        emptyDir:
+      - name: ssl-certs
+        hostPath:
+          path: /etc/ssl/certs
+      containers:
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances={{ .Values.instance_connection_name }}=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+          - name: {{ .Values.cloudsql_instance_credentials_name }}
+            mountPath: /secrets/cloudsql
+            readOnly: true
+          - name: ssl-certs
+            mountPath: /etc/ssl/certs
+          - name: cloudsql
+            mountPath: /cloudsql
+
+      - name: {{ .Values.application_name }}
+        image: {{ .Values.docker_image_name }}:{{ .Values.docker_image_version }}
+        ports:
+        - containerPort: {{ .Values.service_port }}
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: /var/secrets/google
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /var/secrets/google/key.json
+        - name: PROFILE
+          value: "{{ .Values.profile }}"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.cloudsql_db_credentials_name }}
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.cloudsql_db_credentials_name }}
+              key: password
+
+
+        command: ["gunicorn", "-b", ":{{.Values.service_port}}", "app:app"]

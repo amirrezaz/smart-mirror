@@ -1,46 +1,71 @@
 <!doctype html>
 <html ng-app="app">
   <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-      <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
       <script type="text/javascript" src="{{ url_for('static', filename='angular.min.js') }}"></script>
       <script type="text/javascript" src="{{ url_for('static', filename='Chart.min.js') }}"></script>
       <script type="text/javascript" src="{{ url_for('static', filename='angular-chart.min.js') }}"></script>
-      <script type="text/javascript" src="{{ url_for('static', filename='ui-bootstrap-tpls-2.5.0.min.js') }}"></script>
       <script type="text/javascript" src="{{ url_for('static', filename='numeral.js') }}"></script>
-      <script type="text/javascript" src="{{ url_for('static', filename='count-to.js') }}"></script>
-
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-chart/1.0.0-beta.1/ng-google-chart.min.js" type="text/javascript"></script>
-
 
       <script type="text/javascript" src="{{ url_for('static', filename='dashboard.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='directives.js') }}"></script>
+
+      <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+
   </head>
   <body ng-controller="BarCtrl">
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm text-center">
-        <h4>Total Active Registrants</h4>
-        <img src="{{ url_for('static', filename='h6viz.gif') }}" ng-show="show_total_active_logged">
-        <h2>[[ total_active_logged ]]</h2>
-        <uib-progressbar value="55"></uib-progressbar>
+    <div class="container">
+        <div class="header">
+            <div class="title-day">{{ today }} statistics</div>
+        </div>
+         <div class="active-reg">
+              <div class="title">Total Active Registrants</div>
+              <div class="subtitle">Active in the last 12 months</div>
+
+             <div style="display:flex;margin-top:10px;margin-bottom:10px;">
+                  <div class="value" style="flex:1">[[ total_active_logged_formatted ]]</div>
+                  <div style="align-self: flex-end;" class="data-source">Source: SAM</div>
+              </div>
+
+             <progress-bar cur-val='total_active_logged' max-val='total_active_logged_target'></progress-bar>
+             <div class="info">%[[ total_active_logged_percentage ]] of [[ total_active_logged_target_formatted ]] </div>
+          </div>
+
+          <div class="yesterday-reg">
+              <div class="title">Yesterday's registrations</div>
+              <div style="display:flex;margin-top:10px;margin-bottom:10px;">
+                  <div class="value" style="flex:1">[[ yesterday_registrations ]]</div>
+                  <div style="align-self: flex-end;" class="data-source">Source: SAM</div>
+              </div>
+              <div class="separator"></div>
+              <div class="title-days">[[ registrations_date_range ]]</div>
+              <div style="max-height:100px">
+                  <canvas class="chart chart-line" chart-data="seven_days_registrations_data" chart-labels="chart_line_labels" chart-options="chart_line_options" chart-colors="chart_line_colors">
+                  </canvas>
+              </div>
+          </div>
+
+          <div class="yesterday-sub">
+              <div class="title">Yesterday's subscriptions</div>
+              <div style="display:flex;margin-top:10px;margin-bottom:10px;">
+                  <div class="value" style="flex:1">[[ yesterday_subscriptions ]]</div>
+                  <div style="align-self: flex-end;" class="data-source">Source: Starship</div>
+              </div>
+              <div class="separator"></div>
+              <div class="title-days">[[ subscriptions_date_range ]]</div>
+              <div style=max-height:100px">
+                  <canvas class="chart chart-line" chart-data="seven_days_subscriptions_data" chart-labels="chart_line_labels" chart-options="chart_line_options" chart-colors="chart_line_colors">
+                  </canvas>
+              </div>
+          </div>
+
+          <div class="monthly-reg">
+              <div class="title">Registration Acquisitions</div>
+
+                  <barchart height="400" data="monthly_registrations_data"></barchart>
+
+          </div>
     </div>
-    <div class="col-sm text-center">
-        <h4>Yesterday's registrations</h4>
-        <img src="{{ url_for('static', filename='h6viz.gif') }}" ng-show="show_yesterday_registrations">
-        <h2>[[ yesterday_registrations ]]</h2>
-    </div>
-    <div class="col-sm text-center">
-        <h4>Yesterday's subscriptions</h4>
-        <h2>176</h2>
-    </div>
-  </div>
-</div>
-    <img src="{{ url_for('static', filename='h6viz.gif') }}" ng-show="show_monthly_registrations">
-    <div google-chart chart="myChartObject" style="height:600px;width:100%;"></div>
-    <canvas id="bar" class="chart chart-bar"
-        chart-data="data" chart-labels="labels" chart-series="series">
-    </canvas>
+
   </body>
 </html>
