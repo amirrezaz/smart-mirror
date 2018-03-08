@@ -132,19 +132,19 @@ app.directive('barchart', [function () {
 
         const bar_container_style = {
           'height': '100%',
-          'background-color': 'rgba(2, 48, 76, 0.52)',
+          'background-color': 'rgba(4, 111, 178, 0.3)',
           'display': 'flex',
           'flex-direction': 'column',
-          'margin-right': '30px'
+          'margin-right': '30px',
         };
 
         const bar_style = {
           'margin-top': 'auto',
-          'border-top': '4px solid white',
+          'border-top': '4px solid #0D786B',
           'width': '4vw',
           'background-color': '#02C3AA',
           'transition': 'all 1s ease-in-out',
-          'z-index': '1'
+          'z-index': '1',
         };
 
         scope.x_container_style = {
