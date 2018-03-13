@@ -141,6 +141,8 @@ body {
 
 .big-value {
     font-size: 90px;
+    font-family: 'Austin News Deck Roman';
+    color: #21bea8;
 }
 
 .data-source {
@@ -153,6 +155,14 @@ body {
 .info {
   margin-top:20px;
   font-size: 24px;
+}
+
+.error {
+  font-family: 'Telesans Text Regular';
+  font-size: 24px;
+  color: #FF83C9;
+  margin-bottom:10px;
+  text-transform: none;
 }
 
 .separator {
@@ -220,6 +230,18 @@ body {
   url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Semibold.eot?#iefix") format("embedded-opentype");
   font-weight: 700;
 }
+
+@font-face {
+  font-family: 'Austin News Deck Roman';
+  src:url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.woff2") format("woff2"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.woff") format("woff"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.ttf") format("truetype"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.eot"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.svg") format("svg"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.eot?#iefix") format("embedded-opentype");
+  font-weight: 700;
+}
+
 
 @font-face {
   font-family: 'Telesans Head Regular';

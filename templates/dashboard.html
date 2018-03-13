@@ -16,13 +16,13 @@
 
     <div class="container">
         <div class="header">
-            <div class="title-day">{{ today }} statistics</div>
+            <div class="title-day">[[ today ]] statistics</div>
         </div>
          <div class="active-reg box-container">
              <div class="box-header">
                  <div class="box-title">
                      <div class="title">Total Active Registrants</div>
-                     <img ng-show="show_total_active_logged" class="spinner" src="{{ url_for('static', filename='spinner.svg') }}" />
+                     <img ng-show="show_total_active_logged_spinner" class="spinner" src="{{ url_for('static', filename='spinner.svg') }}" />
                   </div>
                  <div class="subtitle">Active in the last 12 months</div>
              </div>
@@ -42,7 +42,7 @@
             <div class="box-header">
                   <div class="box-title">
                      <div class="title">Yesterday's registrations</div>
-                      <img ng-show="show_yesterday_registrations" class="spinner" src="{{ url_for('static', filename='spinner.svg') }}" />
+                      <img ng-show="show_yesterday_registrations_spinner" class="spinner" src="{{ url_for('static', filename='spinner.svg') }}" />
                   </div>
             </div>
             <div class="box-content">
@@ -62,11 +62,11 @@
               </div>
           </div>
 
-          <div class="yesterday-sub box-container">
+          <div class="yesterday-sub box-container" ng-show="show_seven_days_subscriptions_box">
                 <div class="box-header">
                       <div class="box-title">
                           <div class="title">Yesterday's subscriptions</div>
-                          <img ng-show="show_yesterday_subscriptions" class="spinner" src="{{ url_for('static', filename='spinner.svg') }}" />
+                          <img ng-show="show_yesterday_subscriptions_spinner" class="spinner" src="{{ url_for('static', filename='spinner.svg') }}" />
                       </div>
                 </div>
               <div class="box-content">
@@ -89,7 +89,7 @@
           <div class="monthly-reg">
               <div class="box-title">
                   <div class="title">Registration Acquisitions</div>
-                  <img ng-show="show_monthly_registrations" class="spinner" src="{{ url_for('static', filename='spinner.svg') }}" />
+                  <img ng-show="show_monthly_registrations_spinner" class="spinner" src="{{ url_for('static', filename='spinner.svg') }}" />
               </div>
 
                   <barchart height="400" data="monthly_registrations_data"></barchart>
