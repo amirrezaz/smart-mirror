@@ -8,25 +8,25 @@ app.controller("BarCtrl", function ($scope, $http, $interval, $timeout) {
 
     var total_active_logged_refresh_time = {
         hour: 8,
-        minute: 0,
+        minute: 30,
         second: 0
     }
 
     var seven_days_registrations_refresh_time = {
         hour: 8,
-        minute: 0,
+        minute: 30,
         second: 0
     }
 
     var seven_days_subscriptions_refresh_time = {
         hour: 8,
-        minute: 0,
+        minute: 30,
         second: 0
     }
 
     var monthly_registrations_refresh_time = {
         hour: 8,
-        minute: 0,
+        minute: 30,
         second: 0
     }
 
