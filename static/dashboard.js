@@ -30,8 +30,7 @@ app.controller("BarCtrl", function ($scope, $http, $interval, $timeout) {
         second: 0
     }
 
-    var min_subscriptions = 5;
-
+    var min_subscriptions = 15;
 
     $scope.chart_line_labels=["1", "2", "3", "4", "5", "6", "7"];
     $scope.chart_line_options = {

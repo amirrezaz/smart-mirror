@@ -2,7 +2,7 @@
 deployment_name: newsroom-batch-dashboard-deployment
 application_name: newsroom-batch-dashboard-application
 docker_image_name: eu.gcr.io/tmg-datalake/newsroom-batch-dashboard
-docker_image_version: 1.0.7
+docker_image_version: 1.0.8
 replicas: 1
 service_port: 5000
 profile: /newsroom-batch-dashboard/conf/dev.ini
