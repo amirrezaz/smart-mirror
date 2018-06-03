@@ -1,0 +1,23 @@
+<div ng-click="show_detail=true">
+    <div ng-bind="day.date_formatted" class="small" style="clear:both;margin-bottom:10px;margin-top:20px;"></div>
+    <div class="separator"></div>
+    <div ng-repeat="event in day.events" style="clear:both;overflow: hidden">
+        <div style="float:left;margin-right:10px" ng-bind="event.start" class="small" ng-show="event.start"></div>
+        <div style="float:left;" ng-bind="event.title" class="small"></div>
+    </div>
+    <div ng-bind="error" ng-show="error"></div>
+</div>
+
+<div ng-show="show_detail" class="modal" ng-click="show_detail=false">
+    <div class="modal-content">
+        <div ng-repeat="day in days">
+            <div ng-bind="day.date_formatted" class="small" style="clear:both;margin-bottom:10px;margin-top:20px;"></div>
+            <div class="separator"></div>
+            <div ng-repeat="event in day.events" style="clear:both;overflow: hidden">
+                <div style="float:left;margin-right:10px" ng-bind="event.start" class="small" ng-show="event.start"></div>
+                <div style="float:left;" ng-bind="event.title" class="small"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

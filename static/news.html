@@ -1,0 +1,21 @@
+<div>
+    <div ng-repeat="channel in news_channels" class="xsmall" ng-click="update(channel)" style="float:left;margin-left:5px;"> [[ channel ]] |</div>
+    <div style="clear:both"></div>
+    <div ng-click="show_detail=true">
+        <div ng-repeat="news_detail in news | limitTo: 5">
+            <div ng-bind="news_detail.title" class="small"></div>
+        </div>
+        <div ng-bind="error" ng-show="error"></div>
+    </div>
+</div>
+
+<div ng-show="show_detail" class="modal" ng-click="show_detail=false">
+    <div class="modal-content">
+        <div ng-repeat="news_detail in news" style="margin-bottom:10px;">
+            <div ng-bind="news_detail.title" class="small" style="font-weight: bold"></div>
+            <div ng-bind="news_detail.description" class="small" style="margin-top:10px;"></div>
+            <div class="separator" style="margin-top:10px;"></div>
+        </div>
+    </div>
+</div>
+

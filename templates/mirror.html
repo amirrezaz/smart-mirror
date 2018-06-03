@@ -1,0 +1,27 @@
+<!doctype html>
+<html ng-app="app">
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <script type="text/javascript" src="{{ url_for('static', filename='angular.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='mirror.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='directives.js') }}"></script>
+
+      <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='fonts/roboto.css') }}">
+
+  </head>
+  <body ng-controller="MirrorCtrl">
+    <weather locations="southampton,london,tehran"></weather>
+    <!--<calendars type="'google'"></calendars>-->
+    <!--<calendars type="'icloud'"></calendars>-->
+  <!--<news channels="bbc persian,varzesh 3"></news>-->
+  <!--<clock></clock>-->
+  <!--<quote></quote>-->
+  <!--<distance origin="SO167GJ" destination="SO182HW" destination-name="Station"></distance>-->
+  <!--<camera></camera>-->
+  <!--<face></face>-->
+
+
+  </body>
+</html>

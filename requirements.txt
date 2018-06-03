@@ -1,5 +1,6 @@
 Flask==0.12.2
-google-cloud-bigquery==0.29.0
-mysql-connector-python==8.0.6
-MySQL-python==1.2.5
-gunicorn==19.7.1
+PyYAML==3.11
+requests==2.18.4
+google-api-python-client
+feedparser
+dropbox

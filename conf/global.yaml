@@ -1,0 +1,23 @@
+weather:
+  key: dbc9b962cf249d47fd79e8170dcde19c
+  locations:
+    - name: southampton
+      long: 50.952276
+      lat: -1.406768
+    - name: london
+      long: 51.495210
+      lat: -0.127758
+    - name: tehran
+      long: 35.689197
+      lat: 51.388974
+icloud:
+  username: asieh612003@yahoo.com
+  password: Amir1271978
+news_feed:
+  bbc persian: http://feeds.bbci.co.uk/persian/rss.xml
+  varzesh 3: http://www.varzesh3.com/rss/all
+google_map:
+  api_key: AIzaSyDT7y_1-45F1qnB85o5g0WcM1igpyyOoA8
+dropbox:
+  access_token: yogjKSGnHN8AAAAAAAAIA-MQsKreHp4TnEAp2Dedkpd2dAld_LSsEDGKhzr9gXdQ
+  app_folder: smart-mirror-amir

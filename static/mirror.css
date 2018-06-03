@@ -1,0 +1,378 @@
+body {
+    background: #092a39;
+    font-family: 'Telesans Text Regular';
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0px;
+    text-transform: uppercase;
+}
+
+.container {
+    display: grid;
+    grid-template-areas:
+    'header header'
+    'active-reg monthly-reg'
+    'yesterday-reg monthly-reg'
+    'yesterday-sub monthly-reg';
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 65px auto auto auto;
+    height: 100vh;
+}
+
+.box-container {
+    display: grid;
+    grid-template-areas:
+    'box-header'
+    'box-content'
+    'box-footer';
+    grid-template-rows: auto auto 1fr;
+    background-color:red;
+}
+
+.box-footer {
+    align-self: end;
+    grid-area: box-footer;
+}
+
+.box-header {
+    grid-area: box-header;
+}
+
+.box-content {
+    grid-area: box-content;
+}
+
+.header {
+    grid-area: header;
+    padding: 20px;
+}
+
+.spinner {
+    background-image: url('spinner.svg');
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+}
+
+.box-title {
+    display:grid;
+    grid-template-columns:auto auto;
+}
+
+.box-title .spinner {
+    justify-self:end;
+}
+
+.active-reg {
+    margin:0px 0px 0px 25px;
+    grid-area: active-reg;
+}
+
+.yesterday-reg {
+    margin:25px 0px 0px 25px;
+    grid-area: yesterday-reg;
+}
+
+.yesterday-sub {
+    margin:25px 0px 25px 25px;
+    grid-area: yesterday-sub;
+}
+
+.monthly-reg {
+    margin:0 25px 25px 25px;
+    grid-area: monthly-reg;
+    display: flex;
+    flex-direction: column;
+}
+
+.active-reg,
+.yesterday-reg,
+.yesterday-sub,
+.monthly-reg {
+    background: #021b2a;
+    border-bottom: 5px solid white;
+    padding: 20px;
+}
+
+.chart-line-container {
+    max-height:100px;
+}
+
+.title-day {
+  font-family: 'Austin News Deck Semibold';
+  font-size: 28px;
+}
+
+.title {
+  font-family: 'Telesans Text Regular';
+  font-size: 24px;
+  margin-bottom:10px;
+}
+
+@media only screen and (max-width: 1280px) {
+  .title {
+    font-size: 18px;
+  }
+}
+
+.subtitle {
+  font-family: 'Telesans Text Regular';
+  font-size: 24px;
+  margin-bottom:10px;
+  text-transform: none;
+}
+
+@media only screen and (max-width: 1280px) {
+  .subtitle {
+    font-size: 18px;
+  }
+}
+
+
+.title-days {
+  margin-top:10px;
+  font-family: 'Telesans Text Regular';
+  font-size: 22px;
+}
+
+@media only screen and (max-width: 1280px) {
+  .title-days {
+    font-size: 16px;
+  }
+}
+
+.value-container {
+    display:grid;
+    margin-top:10px;
+    margin-bottom:10px;
+    grid-template-columns:auto auto;
+}
+
+.value {
+    font-size: 60px;
+    color: #21bea8;
+    font-family: 'Austin News Text Roman';
+}
+
+@media only screen and (max-width: 1280px) {
+  .value {
+    font-size: 40px;
+  }
+}
+
+
+.big-value {
+    font-size: 90px;
+    font-family: 'Austin News Deck Roman';
+    color: #21bea8;
+}
+
+@media only screen and (max-width: 1280px) {
+  .big-value {
+    font-size: 60px;
+  }
+}
+
+
+.data-source {
+    text-transform: none;
+    font-size: 14px;
+    justify-self:end;
+    align-self:end
+}
+
+@media only screen and (max-width: 1280px) {
+  .data-source {
+    font-size: 12px;
+  }
+}
+
+
+.info {
+  margin-top:20px;
+  font-size: 24px;
+}
+
+@media only screen and (max-width: 1280px) {
+  .info {
+    font-size: 18px;
+  }
+}
+
+.error {
+  font-family: 'Telesans Text Regular';
+  font-size: 24px;
+  color: #FF83C9;
+  margin-bottom:10px;
+  text-transform: none;
+}
+
+.separator {
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+
+.progress-bar {
+  width: 99%;
+  height: 15px;
+  /*border-radius: 8px;*/
+  background-color: #0b3e5d;
+  border-color: #aaa;
+}
+
+.progress-bar-bar {
+  width: 0px;
+  background-color: #fff;
+  height: 100%;
+  color: #fff;
+  font-weight: normal;
+  /*border-radius: 8px;*/
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/** bar chart **/
+
+.bar-chart-container-style {
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 3% repeat(11, 6% 2%) 6% 3%;
+    grid-template-rows: auto 1fr auto;
+}
+
+.number-label-style  {
+    margin-bottom:10px;
+    text-align: center;
+    background-color: #011B2B;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 1280px) {
+  .number-label-style {
+    font-size: 14px;
+  }
+}
+
+.label-style  {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 1280px) {
+  .label-style {
+    font-size: 14px;
+  }
+}
+
+.label-year-style {
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 1280px) {
+  .label-year-style {
+    font-size: 10px;
+  }
+}
+
+.bars-container-style {
+  grid-column: 1 / 26;
+  grid-row: 2 / 3;
+  display : grid;
+  grid-template-columns: 3% repeat(11, 6% 2%) 6% 3%;
+  border-left: 4px solid #0C364A;
+  border-right: 4px solid #0C364A;
+  border-bottom: 4px solid white;
+  background-image: repeating-linear-gradient(transparent,transparent 40px,rgba(12, 54, 74, 0.2) 40px, rgba(12, 54, 74, 0.2) 80px);
+}
+
+.bar-fill-style {
+   background-color: #02C3AA;
+}
+
+
+@font-face {
+  font-family: 'Austin News Text Semibold';
+  src:url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Semibold.woff2") format("woff2"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Semibold.woff") format("woff"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Semibold.ttf") format("truetype"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Semibold.eot"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Semibold.svg") format("svg"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Semibold.eot?#iefix") format("embedded-opentype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Telesans Text Regular';
+  src:url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Text Web-Regular.woff2") format("woff2"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Text Web-Regular.woff") format("woff"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Text Web-Regular.ttf") format("truetype"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Text Web-Regular.eot"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Text Web-Regular.svg") format("svg"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Text Web-Regular.eot?#iefix") format("embedded-opentype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Austin News Text Roman';
+  src:url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Roman.woff2") format("woff2"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Roman.woff") format("woff"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Roman.ttf") format("truetype"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Roman.eot"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Roman.svg") format("svg"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Text Web-Roman.eot?#iefix") format("embedded-opentype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Austin News Deck Semibold';
+  src:url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Semibold.woff2") format("woff2"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Semibold.woff") format("woff"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Semibold.ttf") format("truetype"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Semibold.eot"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Semibold.svg") format("svg"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Semibold.eot?#iefix") format("embedded-opentype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Austin News Deck Roman';
+  src:url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.woff2") format("woff2"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.woff") format("woff"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.ttf") format("truetype"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.eot"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.svg") format("svg"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin News Deck Web-Roman.eot?#iefix") format("embedded-opentype");
+  font-weight: 700;
+}
+
+
+@font-face {
+  font-family: 'Telesans Head Regular';
+  src:url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Head Web-Regular.woff2") format("woff2"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Head Web-Regular.woff") format("woff"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Head Web-Regular.ttf") format("truetype"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Head Web-Regular.eot"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Head Web-Regular.svg") format("svg"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans Head Web-Regular.eot?#iefix") format("embedded-opentype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family:'Telesans Agate';
+  font-style:'normal';
+  font-weight:500;
+  src:url("https://cf.eip.telegraph.co.uk/assets/_fonts/TelesansAgate-Medium.eot");
+  src:url("https://cf.eip.telegraph.co.uk/assets/_fonts/TelesansAgate-Medium.eot?#iefix") format("embedded-opentype"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/TelesansAgate-Medium.woff") format("woff"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/TelesansAgate-Medium.svg#TelesansAgate-Medium") format("svg"),
+  url("https://cf.eip.telegraph.co.uk/assets/_fonts/TelesansAgate-Medium.ttf") format("truetype")
+}
