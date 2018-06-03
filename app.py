@@ -6,9 +6,7 @@ from news import rss_feed
 from quote import quote_of_the_day
 from map import distance_matrix
 from camera import capture
-from flask import g
 import threading
-from celery import Celery
 from flask import jsonify
 
 
