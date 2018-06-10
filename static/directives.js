@@ -1,4 +1,4 @@
-app.directive('weather', ['$http',function ($http) {
+app.directive('weather', ['$http','$interval',function ($http, $interval) {
 
     return {
         restrict: 'E', // element
@@ -40,7 +40,12 @@ app.directive('weather', ['$http',function ($http) {
             scope.locations=scope.locations.split(',');
             scope.location_index = 0;
             scope.locations_length = scope.locations.length;
-            update(scope.locations[scope.location_index]);
+
+            update(scope.locations[scope.location_index])
+
+            var interval = 15 * 60 * 1000 //15 min
+
+            $interval(update, interval, 0, true, scope.locations[scope.location_index]);
 
             scope.next = function() {
                 scope.location_index = scope.location_index + 1;
@@ -60,7 +65,7 @@ app.directive('weather', ['$http',function ($http) {
     };
 }]);
 
-app.directive('calendars', ['$http',function ($http) {
+app.directive('calendars', ['$http','$interval',function ($http, $interval) {
 
     return {
         restrict: 'E', // element
@@ -76,7 +81,6 @@ app.directive('calendars', ['$http',function ($http) {
                 scope.show_calendar = scope.owner == args;
             });
 
-
             function update() {
 
                 var url = scope.type == 'google' ? '/calendar/google' : '/calendar/icloud';
@@ -85,21 +89,26 @@ app.directive('calendars', ['$http',function ($http) {
                     method : "GET",
                     url : url
                 }).then(function mySuccess(response) {
-                    scope.days = response.data.days;
-                    if (scope.days) {
-                        scope.day = response.data.days[0];
-                    }
+                    if(typeof(response.data.error) == "undefined")
+                        scope.days = response.data.days;
+                    else
+                        scope.error = scope.type + ' calendar: ' + response.data.error;
                 }, function myError(response) {
-                    scope.error = response.data.error;
+                    scope.error = scope.type + ' calendar: ' + response.data.error;
                 });
             }
 
             update();
+
+            var interval = 10 * 60 * 1000 //15 min
+
+            $interval(update, interval);
+
         }
     };
 }]);
 
-app.directive('news', ['$http',function ($http) {
+app.directive('news', ['$http','$interval',function ($http,$interval) {
 
     return {
         restrict: 'E', // element
@@ -116,21 +125,28 @@ app.directive('news', ['$http',function ($http) {
 
                 $http({
                     method : "GET",
-                    url : '/news/'+channel
+                    url : '/news/'+ channel
                 }).then(function mySuccess(response) {
                     scope.news = response.data.news;
+                    scope.selected_channel=channel;
                 }, function myError(response) {
                     scope.error = response.data.error;
                 });
             }
 
+            scope.selected_channel=scope.news_channels[0];
             scope.update(scope.news_channels[0]);
+
+            var interval = 20 * 60 * 1000 //20 min
+
+            $interval(scope.update, interval, 0, true, scope.news_channels[0] );
+
         }
     };
 }]);
 
 
-app.directive('quote', ['$http',function ($http) {
+app.directive('quote', ['$http','$interval',function ($http, $interval) {
 
     return {
         restrict: 'E', // element
@@ -153,11 +169,15 @@ app.directive('quote', ['$http',function ($http) {
             }
 
             scope.update();
+
+            var interval = 60 * 60 * 1000 //60 min
+            $interval(scope.update, interval);
+
         }
     };
 }]);
 
-app.directive('distance', ['$http','$timeout',function ($http, $timeout) {
+app.directive('distance', ['$http','$interval',function ($http, $interval) {
 
     return {
         restrict: 'E', // element
@@ -176,7 +196,7 @@ app.directive('distance', ['$http','$timeout',function ($http, $timeout) {
                     method : "GET",
                     url : '/distance/'+ scope.origin + '/' + scope.destination
                 }).then(function mySuccess(response) {
-                    scope.duration = response.data.duration + 'to ' + scope.destinationName;
+                    scope.duration = response.data.duration + ' to ' + scope.destinationName;
 
                 }, function myError(response) {
                     scope.error = response.data.error;
@@ -184,6 +204,10 @@ app.directive('distance', ['$http','$timeout',function ($http, $timeout) {
             }
 
             scope.update();
+
+            var interval = 10 * 60 * 1000 //20 min
+            $interval(scope.update, interval);
+
         }
     };
 }]);
@@ -267,7 +291,8 @@ app.directive('face', ['$http','$interval',function ($http, $interval) {
                     method: "GET",
                     url: '/face'
                 }).then(function mySuccess(response) {
-                    scope.$parent.$broadcast('face_id',response.data.id)
+                    console.log(response.data.id)
+                    // scope.$parent.$broadcast('face_id',response.data.id)
 
                 }, function myError(response) {
 
@@ -280,94 +305,3 @@ app.directive('face', ['$http','$interval',function ($http, $interval) {
     };
 }]);
 
-app.directive('progressBar', [function () {
-
-  return {
-    restrict: 'E', // element
-    scope: {
-      curVal: '=', // bound to 'cur-val' attribute, playback progress
-      maxVal: '='  // bound to 'max-val' attribute, track duration
-    },
-    template: '<div class="progress-bar"><div class="progress-bar-bar"></div></div>',
-
-    link: function (scope, element, attrs) {
-      // grab element references outside the update handler
-      var progressBarBkgdElement = angular.element(element[0].querySelector('.progress-bar')),
-          progressBarMarkerElement = angular.element(element[0].querySelector('.progress-bar-bar'));
-
-      // set the progress-bar-marker width when called
-      function updateProgress() {
-        var progress = 0,
-            currentValue = scope.curVal,
-            maxValue = scope.maxVal,
-            // recompute overall progress bar width inside the handler to adapt to viewport changes
-            progressBarWidth = progressBarBkgdElement.prop('clientWidth');
-
-        if (scope.maxVal) {
-          // determine the current progress marker's width in pixels
-          progress = Math.min(currentValue, maxValue) * 100 / maxValue;
-        }
-
-        // set the marker's width
-        progressBarMarkerElement.css('width', progress + '%');
-      }
-
-      // curVal changes constantly, maxVal only when a new track is loaded
-      scope.$watch('curVal', updateProgress);
-      scope.$watch('maxVal', updateProgress);
-    }
-  };
-
-
-}])
-
-app.directive('barchart', [function () {
-
-  return {
-    restrict: 'E', // element
-    replace: true,
-    scope: {
-      data: '='
-    },
-    templateUrl: '/static/barchart.html',
-
-    link: function (scope, element, attrs) {
-
-        const bar_container_style = {
-          'background-color': 'rgba(4, 111, 178, 0.3)',
-          'display': 'grid'
-        };
-
-        function update() {
-
-            if (typeof scope.data == 'undefined')
-                return
-
-            var max = Math.max.apply(Math,scope.data.map(function(o){return o.count;}))
-
-            var bars = [];
-
-            scope.data.forEach(function(element, index) {
-                var new_bar_container_style = Object.assign({}, bar_container_style);
-
-                new_bar_container_style['grid-template-rows'] = (max - element.count) + 'fr' + ' ' + element.count +'fr';
-
-                bars.push({
-                    'container_style': new_bar_container_style,
-                    'label_month': element.date.month,
-                    'label_year': element.date.year,
-                    'value': numeral(element.count).format('0,0')
-                });
-            });
-
-            scope.bars = bars;
-        }
-
-        scope.$watch('data', update);
-
-    }
-  };
-
-
-
- }])

@@ -1,6 +1,6 @@
 <div ng-swipe-left="previous()" ng-swipe-right="next()" ng-click="show_detail=true">
     <div>
-        <div class="large" style="float:left;margin-top:15px;">[[ temperature ]]°</div>
+        <div class="large bright" style="float:left;margin-top:15px;">[[ temperature ]]°</div>
         <img width="100" ng-src="static/icons/[[ icon ]].png" style="float:left">
     </div>
     <div style="clear:both;text-transform: capitalize" ng-bind="location" class="small"></div>
@@ -16,8 +16,17 @@
 </div>
 <div ng-show="show_detail" class="modal" ng-click="show_detail=false">
     <div class="modal-content">
-       <div style="clear:both">
-            <div ng-repeat="weather in daily" style="float:left;margin-left:10px;">
+
+        <div style="display:flex;justify-content: space-around;">
+            <div ng-repeat="weather in hourly">
+                <div ng-bind="weather.time" style="margin-bottom: 10px;"class="small"></div>
+                <div class="small">[[ weather.temperature ]]°</div>
+                <img width="50" style="margin-top:10px;" ng-src="static/icons/[[ weather.icon ]].png">
+            </div>
+        </div>
+        <div class="separator" style="clear:both;margin-top:20px;margin-bottom:20px"></div>
+       <div style="display:flex;justify-content: space-around;">
+            <div ng-repeat="weather in daily">
                 <div ng-bind="weather.day" style="margin-bottom: 10px;"class="small"></div>
                 <div class="small">[[ weather.temperature_high ]]°</div>
                 <div class="small">[[ weather.temperature_low ]]°</div>
@@ -25,12 +34,5 @@
                 <div class="xsmall" ng-bind="weather.summary" style="width:100px"></div>
             </div>
        </div>
-        <div style="clear:both">
-            <div ng-repeat="weather in hourly" style="float:left;margin-left:10px;">
-                <div ng-bind="weather.time" style="margin-bottom: 10px;"class="small"></div>
-                <div class="small">[[ weather.temperature ]]°</div>
-                <img width="50" style="margin-top:10px;" ng-src="static/icons/[[ weather.icon ]].png">
-            </div>
-        </div>
     </div>
 </div>

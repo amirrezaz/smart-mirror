@@ -8,7 +8,8 @@ from map import distance_matrix
 from camera import capture
 import threading
 from flask import jsonify
-
+from face_recognition import recognize
+from face_recognition import face_id
 
 app = Flask(__name__)
 app.register_blueprint(location_weather)
@@ -19,12 +20,10 @@ app.register_blueprint(quote_of_the_day)
 app.register_blueprint(distance_matrix)
 app.register_blueprint(capture)
 
-face_id = None
 
 @app.route('/')
 def mirror():
 
-    print(face_id)
     return render_template(
         "mirror.html"
     )
@@ -36,15 +35,10 @@ def face():
         'id': face_id
     })
 
-
 def face_recognition():
-    def start_loop():
-        while True:
-            global face_id
-            face_id = 2
 
-    print('Started runner')
-    thread = threading.Thread(target=start_loop)
+    print('Start Face Recognition')
+    thread = threading.Thread(target=recognize())
     thread.start()
 
 

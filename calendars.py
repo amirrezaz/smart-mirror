@@ -81,8 +81,6 @@ def calendar():
     from_date = datetime.today()
     end_date = from_date + timedelta(days=14)
 
-    print(end_date)
-
     events_result = service.events().list(
         calendarId='primary',
         timeMin=from_date.isoformat() + 'Z',
@@ -115,10 +113,10 @@ def calendar():
 
         date_index = next((index for (index, d) in enumerate(results) if d["date"] == date_str), None)
 
-        if date_index:
-            results[date_index]['events'].append(event_item)
-        else:
+        if date_index is None:
             results.append(date_item)
+        else:
+            results[date_index]['events'].append(event_item)
 
 
     return jsonify({
