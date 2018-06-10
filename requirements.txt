@@ -5,3 +5,4 @@ google-api-python-client==1.6.7
 feedparser==5.2.1
 dropbox==8.8.1
 pyicloud==0.9.1
+picamera==1.13

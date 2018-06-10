@@ -89,3 +89,6 @@ def recognize():
 
     # Close all windows
     cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    recognize()
