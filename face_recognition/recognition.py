@@ -16,6 +16,7 @@ import os
 
 face_id = None
 
+
 def recognize():
 
     # Create Local Binary Patterns Histograms for face recognization
@@ -89,6 +90,7 @@ def recognize():
 
     # Close all windows
     cv2.destroyAllWindows()
+
 
 if __name__ == "__main__":
     recognize()
