@@ -16,6 +16,8 @@ import os
 
 face_id = None
 
+MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
+
 
 def recognize():
 
@@ -23,10 +25,11 @@ def recognize():
     recognizer = cv2.face.LBPHFaceRecognizer_create()
 
     # Load the trained mode
-    recognizer.read('trainer/trainer.yml')
+
+    recognizer.read('{}/{}'.format(MODULE_PATH, 'trainer/trainer.yml'))
 
     # Load prebuilt model for Frontal Face
-    cascadePath = "haarcascade_frontalface_default.xml"
+    cascadePath = '{}/{}'.format(MODULE_PATH,"haarcascade_frontalface_default.xml")
 
     # Create classifier from prebuilt model
     faceCascade = cv2.CascadeClassifier(cascadePath);
