@@ -18,18 +18,35 @@ import os
 MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
+class RecognitionThread(threading.Thread):
+    """Thread class with a stop() method. The thread itself has to check
+    regularly for the stopped() condition."""
+
+    def __init__(self):
+        super(RecognitionThread, self).__init__()
+        self._stop_event = threading.Event()
+
+    def stop(self):
+        self._stop_event.set()
+
+    def stopped(self):
+        return self._stop_event.is_set()
+
+
 class Recognition:
 
     def __init__(self):
         self.face_id = None
         self.cam = PiCamera()
-        self.thread = threading.Thread(target=self.recognize)
+        self.thread = RecognitionThread(target=self.recognize)
 
     def start(self):
         self.thread.start()
 
     def stop(self):
         self.thread.stop()
+        while not self.thread.stopped():
+            sleep(1000)
         self.camera.release()
 
     def recognize(self):
