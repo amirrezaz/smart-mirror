@@ -8,12 +8,12 @@ class Utility:
 
     def turn_off(self):
         if self.monitor_on:
-            call([])
+            # call([])
             self.monitor_on = False
 
     def turn_on(self):
         if not self.monitor_on and not self.monitor_off_hard:
-            call([])
+            # call([])
             self.monitor_on = True
 
     def turn_off_hard(self):
