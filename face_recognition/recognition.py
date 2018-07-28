@@ -47,7 +47,7 @@ class Recognition:
         self.thread.stop()
         while not self.thread.stopped():
             sleep(1000)
-        self.cam.stop_preview()
+        cv2.destroyAllWindows()
 
     def recognize(self):
 
@@ -118,7 +118,7 @@ class Recognition:
             rawCapture.truncate(0)
 
         # Stop the camera
-        self.cam.release()
+        # self.cam.release()
 
         # Close all windows
         cv2.destroyAllWindows()
