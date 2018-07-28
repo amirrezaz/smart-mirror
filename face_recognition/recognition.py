@@ -47,7 +47,7 @@ class Recognition:
         self.thread.stop()
         while not self.thread.stopped():
             sleep(1000)
-        self.cam.release()
+        self.cam.stop_preview()
 
     def recognize(self):
 
