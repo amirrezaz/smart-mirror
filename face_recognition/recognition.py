@@ -52,6 +52,11 @@ def recognize():
         # Get all face from the video frame
         faces = faceCascade.detectMultiScale(gray, 1.2,5)
 
+        global face_id
+
+        if not faces:
+            face_id = None
+
         # For each face in faces
         for(x,y,w,h) in faces:
 
@@ -62,15 +67,13 @@ def recognize():
             id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
 
             # Check the ID if exist
-            global face_id
-
             if id == 1:
                 face_id = 1
                 txt = "Amir {0:.2f}%".format(round(100 - confidence, 2))
-            if id == 2:
+            elif id == 2:
                 face_id = 2
                 txt = "Asieh {0:.2f}%".format(round(100 - confidence, 2))
-            if id not in [1, 2]:
+            else:
                 face_id = None
                 txt = "Unknown"
 
