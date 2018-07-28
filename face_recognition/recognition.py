@@ -25,6 +25,7 @@ class RecognitionThread(threading.Thread):
     def __init__(self, *args, **kwargs):
         super(RecognitionThread, self).__init__(*args, **kwargs)
         self._stop_event = threading.Event()
+        self.face_id = None
 
     def stop(self):
         self._stop_event.set()
@@ -32,24 +33,7 @@ class RecognitionThread(threading.Thread):
     def stopped(self):
         return self._stop_event.is_set()
 
-
-class Recognition:
-
-    def __init__(self):
-        self.face_id = None
-        self.cam = PiCamera()
-        self.thread = RecognitionThread(target=self.recognize)
-
-    def start(self):
-        self.thread.start()
-
-    def stop(self):
-        self.thread.stop()
-        while not self.thread.stopped():
-            time.sleep(1)
-        self.cam.close()
-
-    def recognize(self):
+    def run(self):
 
         # Create Local Binary Patterns Histograms for face recognization
         recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -111,17 +95,33 @@ class Recognition:
             # Display the video frame with the bounded rectangle
             cv2.imshow('im',im)
 
-            # If 'q' is pressed, close program
-            if cv2.waitKey(10) & 0xFF == ord('q'):
+            if self.stopped():
                 break
 
             rawCapture.truncate(0)
 
         # Stop the camera
-        # self.cam.release()
+        self.cam.close()
 
         # Close all windows
         cv2.destroyAllWindows()
+
+
+class Recognition:
+
+    def __init__(self):
+        self.thread = RecognitionThread()
+
+    @property
+    def face_id(self):
+        return self.thread.face_id
+
+    def start(self):
+        self.thread.start()
+
+    def stop(self):
+        self.thread.stop()
+        self.thread.join()
 
 
 recognition = Recognition()
