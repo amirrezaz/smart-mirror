@@ -34,7 +34,7 @@ def mirror():
 @app.route('/face')
 def face():
 
-    if face_id is None:
+    if recognition.face_id is None:
         utility.turn_off()
     else:
         utility.turn_on()
