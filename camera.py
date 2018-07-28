@@ -24,11 +24,13 @@ def camera_capture():
     camera.resolution = (640, 480)
     camera.start_preview()
     count_down = 5
-    while count_down > 0:
-        camera.annotate_text = str(count_down)
-        count_down -= 1
-        time.sleep(1)
-    camera.annotate_text = ''
+    camera.annotate_text = 'xxxxxx'
+    # while count_down > 0:
+    #     camera.annotate_text = str(count_down)
+    #     count_down -= 1
+    #     time.sleep(1)
+    # camera.annotate_text = ''
+    time.sleep(5)
     camera.stop_preview()
     camera.capture('image.jpg')
     camera.close()
