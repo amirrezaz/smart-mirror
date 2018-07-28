@@ -21,8 +21,9 @@ def camera_capture():
     # call(["raspistill", "-o", "cam.jpg"])
     # recognition.stop()
     camera = PiCamera()
-    time.sleep(5)
+    time.sleep(3)
     camera.capture('image.jpg')
+    camera2 = PiCamera()
     # recognition.start()
 
 
