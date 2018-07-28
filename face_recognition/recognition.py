@@ -54,7 +54,7 @@ def recognize():
 
         global face_id
 
-        if not faces.all():
+        if not len(faces) == 0:
             face_id = None
 
         # For each face in faces
