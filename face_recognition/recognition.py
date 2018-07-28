@@ -53,9 +53,9 @@ class Recognition:
         # Initialize and start the video frame capture
         self.cam.resolution=(640,480)
         self.cam.framerate=30
-        rawCapture = PiRGBArray(cam, size=(640,480))
+        rawCapture = PiRGBArray(self.cam, size=(640,480))
         # Loop
-        for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+        for frame in self.cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             im = frame.array    # Read the video frame
 
             # Convert the captured frame into grayscale
@@ -110,4 +110,4 @@ class Recognition:
 recognition = Recognition()
 
 if __name__ == "__main__":
-    recognize()
+    recognition.recognize()
