@@ -52,11 +52,12 @@ class RecognitionThread(threading.Thread):
         font = cv2.FONT_HERSHEY_SIMPLEX
 
         # Initialize and start the video frame capture
-        self.cam.resolution=(640,480)
-        self.cam.framerate=30
-        rawCapture = PiRGBArray(self.cam, size=(640,480))
+        cam = PiCamera()
+        cam.resolution=(640,480)
+        cam.framerate=30
+        rawCapture = PiRGBArray(cam, size=(640,480))
         # Loop
-        for frame in self.cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+        for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             im = frame.array    # Read the video frame
 
             # Convert the captured frame into grayscale
@@ -101,7 +102,7 @@ class RecognitionThread(threading.Thread):
             rawCapture.truncate(0)
 
         # Stop the camera
-        self.cam.close()
+        cam.close()
 
         # Close all windows
         cv2.destroyAllWindows()
