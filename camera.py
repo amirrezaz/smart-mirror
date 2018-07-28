@@ -23,6 +23,7 @@ def camera_capture():
     camera = PiCamera()
     time.sleep(3)
     camera.capture('image.jpg')
+    camera.close()
     camera2 = PiCamera()
     # recognition.start()
 
