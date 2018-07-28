@@ -21,11 +21,8 @@ def camera_capture():
     # call(["raspistill", "-o", "cam.jpg"])
     # recognition.stop()
     camera = PiCamera()
-    camera.resolution = (800, 600)
-    camera.start_preview()
     time.sleep(5)
     camera.capture('image.jpg')
-    camera.stop_preview()
     # recognition.start()
 
 
