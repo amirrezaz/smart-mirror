@@ -1,8 +1,5 @@
 from subprocess import call
 
-utility = Utility()
-
-
 class Utility:
 
     def __init__(self):
@@ -30,3 +27,5 @@ class Utility:
     def capture_image(self):
         call(["raspistill", "-o", "cam.jpg"])
 
+
+utility = Utility()
