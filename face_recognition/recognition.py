@@ -38,7 +38,6 @@ def recognize():
     font = cv2.FONT_HERSHEY_SIMPLEX
 
     # Initialize and start the video frame capture
-    cam = cv2.VideoCapture(0)
     cam = PiCamera()
     cam.resolution=(640,480)
     cam.framerate=30
@@ -68,11 +67,11 @@ def recognize():
             if id == 1:
                 face_id = 1
                 txt = "Amir {0:.2f}%".format(round(100 - confidence, 2))
-            elif id == 2:
+            if id == 2:
                 face_id = 2
                 txt = "Asieh {0:.2f}%".format(round(100 - confidence, 2))
-            else:
-                face_id = 3
+            if id not in [1, 2]:
+                face_id = None
                 txt = "Unknown"
 
             # Put text describe who is in the picture
