@@ -78,6 +78,7 @@ app.directive('calendars', ['$http','$interval',function ($http, $interval) {
         link: function (scope, element, attrs) {
 
             scope.$on('face_id',function(event,args){
+                console.log(args);
                 scope.show_calendar = scope.owner == args;
             });
 
@@ -291,8 +292,7 @@ app.directive('face', ['$http','$interval',function ($http, $interval) {
                     method: "GET",
                     url: '/face'
                 }).then(function mySuccess(response) {
-                    console.log(response.data.id)
-                    // scope.$parent.$broadcast('face_id',response.data.id)
+                    scope.$parent.$broadcast('face_id',response.data.id)
 
                 }, function myError(response) {
 

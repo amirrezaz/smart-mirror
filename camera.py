@@ -6,18 +6,17 @@ import requests
 import dropbox
 from datetime import datetime
 from subprocess import call
-from flask import g
+from utils import utility
 
 capture = Blueprint('capture', __name__, template_folder='templates')
 @capture.route('/capture/')
 def camera_capture():
-    print('*******')
-    print(g.face_id)
     config = conf.Config()
     access_token = config.params.get('dropbox',{}).get('access_token', None)
     app_folder = config.params.get('dropbox',{}).get('app_folder', None)
 
-    call(["raspistill", "-o", "cam.jpg"])
+    utility.capture_image()
+    # call(["raspistill", "-o", "cam.jpg"])
 
     dbx = dropbox.Dropbox(access_token)
 
