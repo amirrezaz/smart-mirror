@@ -97,6 +97,7 @@ class RecognitionThread(threading.Thread):
             cv2.imshow('im',im)
 
             if self.stopped():
+                print 'stoppppppeddddddd'
                 break
 
             rawCapture.truncate(0)
