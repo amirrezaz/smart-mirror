@@ -19,13 +19,12 @@ def camera_capture():
     app_folder = config.params.get('dropbox',{}).get('app_folder', None)
 
     # call(["raspistill", "-o", "cam.jpg"])
-    # recognition.stop()
+    recognition.stop()
     camera = PiCamera()
     time.sleep(3)
     camera.capture('image.jpg')
     camera.close()
-    camera2 = PiCamera()
-    # recognition.start()
+    recognition.start()
 
 
     dbx = dropbox.Dropbox(access_token)

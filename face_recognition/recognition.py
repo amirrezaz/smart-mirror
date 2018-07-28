@@ -37,8 +37,8 @@ class Recognition:
 
     def __init__(self):
         self.face_id = None
-        # self.cam = PiCamera()
-        # self.thread = RecognitionThread(target=self.recognize)
+        self.cam = PiCamera()
+        self.thread = RecognitionThread(target=self.recognize)
 
     def start(self):
         self.thread.start()
@@ -46,8 +46,8 @@ class Recognition:
     def stop(self):
         self.thread.stop()
         while not self.thread.stopped():
-            time.sleep(1000)
-        cv2.destroyAllWindows()
+            time.sleep(1)
+        self.cam.close()
 
     def recognize(self):
 
