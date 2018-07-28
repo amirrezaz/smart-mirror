@@ -25,7 +25,7 @@ def camera_capture():
     camera.start_preview()
     count_down = 5
     while count_down > 0:
-        camera.annotate_text(count_down)
+        camera.annotate_text = str(count_down)
         count_down -= 1
         time.sleep(1)
     camera.annotate_text = ''
