@@ -58,7 +58,6 @@ class RecognitionThread(threading.Thread):
         rawCapture = PiRGBArray(cam, size=(640,480))
         # Loop
         for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-            print 'yesssssssss'
 
             im = frame.array    # Read the video frame
 
@@ -114,13 +113,14 @@ class RecognitionThread(threading.Thread):
 class Recognition:
 
     def __init__(self):
-        self.thread = RecognitionThread()
+        self.thread = None
 
     @property
     def face_id(self):
         return self.thread.face_id
 
     def start(self):
+        self.thread = RecognitionThread()
         self.thread.start()
 
     def stop(self):
