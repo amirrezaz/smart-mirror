@@ -21,6 +21,7 @@ def camera_capture():
     # call(["raspistill", "-o", "cam.jpg"])
     recognition.stop()
     camera = PiCamera()
+    camera.resolution = (640, 480)
     camera.start_preview()
     count_down = 5
     while count_down > 0:
