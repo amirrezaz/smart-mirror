@@ -24,8 +24,5 @@ class Utility:
         self.monitor_off_hard = False
         self.turn_on()
 
-    def capture_image(self):
-        call(["raspistill", "-o", "cam.jpg"])
-
 
 utility = Utility()
