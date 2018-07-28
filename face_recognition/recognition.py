@@ -9,7 +9,7 @@ import cv2
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 import threading
-
+import time
 # Import numpy for matrices calculations
 import numpy as np
 
@@ -46,7 +46,7 @@ class Recognition:
     def stop(self):
         self.thread.stop()
         while not self.thread.stopped():
-            sleep(1000)
+            time.sleep(1000)
         cv2.destroyAllWindows()
 
     def recognize(self):

@@ -22,7 +22,7 @@ def camera_capture():
     camera = PiCamera()
     camera.resolution = (800, 600)
     camera.start_preview()
-    sleep(5)
+    time.sleep(5)
     camera.capture('image.jpg')
     camera.stop_preview()
     # recognition.start()
