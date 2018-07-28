@@ -10,8 +10,7 @@ import threading
 from flask import jsonify
 import time
 from utils import utility
-from face_recognition.recognition import recognize
-from face_recognition import recognition
+from face_recognition.recognition import recognition
 
 app = Flask(__name__)
 app.register_blueprint(location_weather)
@@ -55,6 +54,5 @@ def face():
 
 
 if __name__ == '__main__':
-    thread = threading.Thread(target=recognize)
-    thread.start()
+    recognition.start()
     app.run()

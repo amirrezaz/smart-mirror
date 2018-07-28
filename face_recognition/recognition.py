@@ -14,88 +14,99 @@ import numpy as np
 
 import os
 
-face_id = None
-
 MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
-def recognize():
+class Recognition:
 
-    # Create Local Binary Patterns Histograms for face recognization
-    recognizer = cv2.face.LBPHFaceRecognizer_create()
+    def __init__(self):
+        self.face_id = None
+        self.cam = PiCamera()
+        self.thread = threading.Thread(target=self.recognize)
 
-    # Load the trained mode
+    def start(self):
+        self.thread.start()
 
-    recognizer.read('{}/{}'.format(MODULE_PATH, 'trainer/trainer.yml'))
+    def stop(self):
+        self.thread.stop()
+        self.camera.release()
 
-    # Load prebuilt model for Frontal Face
-    cascadePath = '{}/{}'.format(MODULE_PATH,"haarcascade_frontalface_default.xml")
+    def recognize(self):
 
-    # Create classifier from prebuilt model
-    faceCascade = cv2.CascadeClassifier(cascadePath);
+        # Create Local Binary Patterns Histograms for face recognization
+        recognizer = cv2.face.LBPHFaceRecognizer_create()
 
-    # Set the font style
-    font = cv2.FONT_HERSHEY_SIMPLEX
+        # Load the trained mode
 
-    # Initialize and start the video frame capture
-    cam = PiCamera()
-    cam.resolution=(640,480)
-    cam.framerate=30
-    rawCapture = PiRGBArray(cam, size=(640,480))
-    # Loop
-    for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-        im = frame.array    # Read the video frame
+        recognizer.read('{}/{}'.format(MODULE_PATH, 'trainer/trainer.yml'))
 
-        # Convert the captured frame into grayscale
-        gray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
+        # Load prebuilt model for Frontal Face
+        cascadePath = '{}/{}'.format(MODULE_PATH,"haarcascade_frontalface_default.xml")
 
-        # Get all face from the video frame
-        faces = faceCascade.detectMultiScale(gray, 1.2,5)
+        # Create classifier from prebuilt model
+        faceCascade = cv2.CascadeClassifier(cascadePath);
 
-        global face_id
+        # Set the font style
+        font = cv2.FONT_HERSHEY_SIMPLEX
 
-        if len(faces) == 0:
-            face_id = None
+        # Initialize and start the video frame capture
+        self.cam.resolution=(640,480)
+        self.cam.framerate=30
+        rawCapture = PiRGBArray(cam, size=(640,480))
+        # Loop
+        for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+            im = frame.array    # Read the video frame
 
-        # For each face in faces
-        for(x,y,w,h) in faces:
+            # Convert the captured frame into grayscale
+            gray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
 
-            # Create rectangle around the face
-            cv2.rectangle(im, (x-20,y-20), (x+w+20,y+h+20), (0,255,0), 4)
+            # Get all face from the video frame
+            faces = faceCascade.detectMultiScale(gray, 1.2,5)
 
-            # Recognize the face belongs to which ID
-            id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
+            if len(faces) == 0:
+                self.face_id = None
 
-            # Check the ID if exist
-            if id == 1:
-                face_id = 1
-                txt = "Amir {0:.2f}%".format(round(100 - confidence, 2))
-            elif id == 2:
-                face_id = 2
-                txt = "Asieh {0:.2f}%".format(round(100 - confidence, 2))
-            else:
-                face_id = None
-                txt = "Unknown"
+            # For each face in faces
+            for(x,y,w,h) in faces:
 
-            # Put text describe who is in the picture
-            cv2.rectangle(im, (x-22,y-90), (x+w+22, y-22), (0,255,0), -1)
-            cv2.putText(im, txt, (x,y-40), font, 1, (255,255,255), 3)
+                # Create rectangle around the face
+                cv2.rectangle(im, (x-20,y-20), (x+w+20,y+h+20), (0,255,0), 4)
 
-        # Display the video frame with the bounded rectangle
-        cv2.imshow('im',im)
+                # Recognize the face belongs to which ID
+                id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
 
-        # If 'q' is pressed, close program
-        if cv2.waitKey(10) & 0xFF == ord('q'):
-            break
+                # Check the ID if exist
+                if id == 1:
+                    self.face_id = 1
+                    txt = "Amir {0:.2f}%".format(round(100 - confidence, 2))
+                elif id == 2:
+                    self.face_id = 2
+                    txt = "Asieh {0:.2f}%".format(round(100 - confidence, 2))
+                else:
+                    self.face_id = None
+                    txt = "Unknown"
 
-        rawCapture.truncate(0)
+                # Put text describe who is in the picture
+                cv2.rectangle(im, (x-22,y-90), (x+w+22, y-22), (0,255,0), -1)
+                cv2.putText(im, txt, (x,y-40), font, 1, (255,255,255), 3)
 
-    # Stop the camera
-    cam.release()
+            # Display the video frame with the bounded rectangle
+            cv2.imshow('im',im)
 
-    # Close all windows
-    cv2.destroyAllWindows()
+            # If 'q' is pressed, close program
+            if cv2.waitKey(10) & 0xFF == ord('q'):
+                break
 
+            rawCapture.truncate(0)
+
+        # Stop the camera
+        self.cam.release()
+
+        # Close all windows
+        cv2.destroyAllWindows()
+
+
+recognition = Recognition()
 
 if __name__ == "__main__":
     recognize()

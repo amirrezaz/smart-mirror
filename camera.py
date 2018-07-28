@@ -7,6 +7,8 @@ import dropbox
 from datetime import datetime
 from subprocess import call
 from picamera import PiCamera
+from face_recognition.recognition import recognition
+
 
 capture = Blueprint('capture', __name__, template_folder='templates')
 @capture.route('/capture/')
@@ -16,11 +18,14 @@ def camera_capture():
     app_folder = config.params.get('dropbox',{}).get('app_folder', None)
 
     # call(["raspistill", "-o", "cam.jpg"])
+    recognition.stop()
     camera = PiCamera()
     camera.start_preview()
     sleep(5)
     camera.capture('image.jpg')
     camera.stop_preview()
+    recognition.start()
+
 
     dbx = dropbox.Dropbox(access_token)
 
