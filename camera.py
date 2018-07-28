@@ -8,6 +8,7 @@ from datetime import datetime
 from subprocess import call
 from picamera import PiCamera
 from face_recognition.recognition import recognition
+import time
 
 
 capture = Blueprint('capture', __name__, template_folder='templates')
