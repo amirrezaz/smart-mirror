@@ -21,7 +21,14 @@ def camera_capture():
     # call(["raspistill", "-o", "cam.jpg"])
     recognition.stop()
     camera = PiCamera()
-    time.sleep(3)
+    camera.start_preview()
+    count_down = 5
+    while count_down > 0:
+        camera.annotate_text(count_down)
+        count_down -= 1
+        time.sleep(1)
+    camera.annotate_text = ''
+    camera.stop_preview()
     camera.capture('image.jpg')
     camera.close()
     recognition.start()
