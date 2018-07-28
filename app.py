@@ -6,7 +6,6 @@ from news import rss_feed
 from quote import quote_of_the_day
 from map import distance_matrix
 from camera import capture
-import threading
 from flask import jsonify
 import time
 from utils import utility
