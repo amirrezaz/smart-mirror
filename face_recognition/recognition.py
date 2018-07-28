@@ -37,8 +37,8 @@ class Recognition:
 
     def __init__(self):
         self.face_id = None
-        self.cam = PiCamera()
-        self.thread = RecognitionThread(target=self.recognize)
+        # self.cam = PiCamera()
+        # self.thread = RecognitionThread(target=self.recognize)
 
     def start(self):
         self.thread.start()
