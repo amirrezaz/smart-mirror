@@ -18,13 +18,10 @@ def camera_capture():
     access_token = config.params.get('dropbox',{}).get('access_token', None)
     app_folder = config.params.get('dropbox',{}).get('app_folder', None)
 
-    # call(["raspistill", "-o", "cam.jpg"])
     recognition.stop()
     camera = PiCamera()
-    camera.resolution = (640, 480)
     camera.start_preview()
     count_down = 5
-    camera.annotate_text = 'xxxxxx'
     while count_down > 0:
         camera.annotate_text = str(count_down)
         count_down -= 1
@@ -34,7 +31,6 @@ def camera_capture():
     camera.capture('image.jpg')
     camera.close()
     recognition.start()
-
 
     dbx = dropbox.Dropbox(access_token)
 

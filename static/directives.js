@@ -252,29 +252,16 @@ app.directive('camera', ['$http','$interval',function ($http, $interval) {
 
         link: function (scope, element, attrs) {
 
-            scope.max_count = 5;
-
-            scope.count_down = function() {
-                scope.count = scope.count - 1;
-                if (scope.count == 0) {
-                    scope.count = ''
-                    $http({
-                        method : "GET",
-                        url : '/capture/'
-                    }).then(function mySuccess(response) {
-
-                    }, function myError(response) {
-
-                    });
-                }
-            }
-
             scope.capture = function() {
 
-                scope.count = scope.max_count;
+                $http({
+                    method : "GET",
+                    url : '/capture/'
+                }).then(function mySuccess(response) {
 
-                $interval(scope.count_down, 1000, scope.max_count);
+                }, function myError(response) {
 
+                });
             }
 
         }
