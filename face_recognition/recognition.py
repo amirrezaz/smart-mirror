@@ -58,6 +58,8 @@ class RecognitionThread(threading.Thread):
         rawCapture = PiRGBArray(cam, size=(640,480))
         # Loop
         for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+            print 'yesssssssss'
+
             im = frame.array    # Read the video frame
 
             # Convert the captured frame into grayscale
