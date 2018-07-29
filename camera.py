@@ -56,22 +56,17 @@ def camera_record():
     access_token = config.params.get('dropbox',{}).get('access_token', None)
     app_folder = config.params.get('dropbox',{}).get('app_folder', None)
 
-    # recognition.stop()
+    recognition.stop()
     camera = PiCamera()
-    camera.resolution = (800, 600)
+    camera.resolution = (1024, 768)
     camera.start_preview()
 
     camera.start_recording('video.h264')
     camera.wait_recording(10)
-    # count_down = 10
-    # while count_down > 0:
-    #     camera.annotate_text = str(count_down)
-    #     count_down -= 1
-    #     camera.wait_recording(0.2)
     camera.stop_recording()
     camera.stop_preview()
     camera.close()
-    # recognition.start()
+    recognition.start()
 
     dbx = dropbox.Dropbox(access_token)
 

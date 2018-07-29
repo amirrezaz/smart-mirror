@@ -276,7 +276,7 @@ app.directive('record', ['$http','$interval',function ($http, $interval) {
 
         link: function (scope, element, attrs) {
 
-            scope.capture = function() {
+            scope.record = function() {
 
                 $http({
                     method : "GET",

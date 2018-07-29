@@ -55,5 +55,5 @@ def face():
 
 
 if __name__ == '__main__':
-    # recognition.start()
+    recognition.start()
     app.run()
