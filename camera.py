@@ -61,7 +61,7 @@ def camera_record():
     camera.resolution = (1024, 768)
     camera.start_preview()
 
-    camera.start_recording('video.h264')
+    camera.start_recording('video.avi')
     camera.wait_recording(10)
     camera.stop_recording()
     camera.stop_preview()
@@ -70,11 +70,11 @@ def camera_record():
 
     dbx = dropbox.Dropbox(access_token)
 
-    with open("video.h264", "rb") as videoFile:
+    with open("video.avi", "rb") as videoFile:
         f = videoFile.read()
         dbx.files_upload(
             f,
-            '/{app_folder}/{filename}.h264'.format(
+            '/{app_folder}/{filename}.avi'.format(
                 app_folder=app_folder,
                 filename=datetime.now().strftime('%s')
             )
