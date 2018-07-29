@@ -244,7 +244,7 @@ app.directive('clock', ['$http','$timeout',function ($http, $timeout) {
     };
 }]);
 
-app.directive('camera', ['$http','$interval',function ($http, $interval) {
+app.directive('capture', ['$http','$interval',function ($http, $interval) {
 
     return {
         restrict: 'E', // element
@@ -257,6 +257,30 @@ app.directive('camera', ['$http','$interval',function ($http, $interval) {
                 $http({
                     method : "GET",
                     url : '/capture/'
+                }).then(function mySuccess(response) {
+
+                }, function myError(response) {
+
+                });
+            }
+
+        }
+    };
+}]);
+
+app.directive('record', ['$http','$interval',function ($http, $interval) {
+
+    return {
+        restrict: 'E', // element
+        templateUrl: '/static/record.html',
+
+        link: function (scope, element, attrs) {
+
+            scope.capture = function() {
+
+                $http({
+                    method : "GET",
+                    url : '/record/'
                 }).then(function mySuccess(response) {
 
                 }, function myError(response) {

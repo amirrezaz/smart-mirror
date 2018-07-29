@@ -47,3 +47,43 @@ def camera_capture():
     return jsonify ({
         'status': 'done'
     })
+
+
+record = Blueprint('record', __name__, template_folder='templates')
+@capture.route('/record/')
+def camera_record():
+    config = conf.Config()
+    access_token = config.params.get('dropbox',{}).get('access_token', None)
+    app_folder = config.params.get('dropbox',{}).get('app_folder', None)
+
+    recognition.stop()
+    camera = PiCamera()
+    camera.resolution = (1025, 768)
+    camera.start_preview()
+
+    camera.start_recording('video.h264')
+    count_down = 10
+    while count_down > 0:
+        camera.annotate_text = str(count_down)
+        count_down -= 1
+        camera.wait_recording(1)
+    camera.stop_recording()
+    camera.stop_preview()
+    camera.close()
+    recognition.start()
+
+    dbx = dropbox.Dropbox(access_token)
+
+    with open("video.h264", "rb") as videoFile:
+        f = videoFile.read()
+        dbx.files_upload(
+            f,
+            '/{app_folder}/{filename}.h264'.format(
+                app_folder=app_folder,
+                filename=datetime.now().strftime('%s')
+            )
+        )
+
+    return jsonify({
+        'status': 'done'
+    })

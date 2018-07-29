@@ -6,6 +6,7 @@ from news import rss_feed
 from quote import quote_of_the_day
 from map import distance_matrix
 from camera import capture
+from camera import record
 from flask import jsonify
 import time
 from utils import utility
@@ -19,6 +20,7 @@ app.register_blueprint(rss_feed)
 app.register_blueprint(quote_of_the_day)
 app.register_blueprint(distance_matrix)
 app.register_blueprint(capture)
+app.register_blueprint(record)
 
 
 @app.route('/')
