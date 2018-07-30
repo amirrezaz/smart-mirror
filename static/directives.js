@@ -300,7 +300,9 @@ app.directive('power', ['$http','$interval',function ($http, $interval) {
 
         link: function (scope, element, attrs) {
 
-            scope.power = function(type) {
+            scope.power = function($event, type) {
+
+                console.log($event.currentTarget.nodeName);
 
                 $http({
                     method : "GET",
