@@ -9,6 +9,7 @@ from camera import capture, record
 from flask import jsonify
 import time
 from screen import power
+from face_recognition.recognition import recognition
 
 app = Flask(__name__)
 app.register_blueprint(location_weather)
