@@ -6,6 +6,7 @@ from news import rss_feed
 from quote import quote_of_the_day
 from map import distance_matrix
 from camera import capture, record
+from face import face
 from flask import jsonify
 import time
 from screen import power
@@ -21,6 +22,7 @@ app.register_blueprint(distance_matrix)
 app.register_blueprint(capture)
 app.register_blueprint(record)
 app.register_blueprint(power)
+app.register_blueprint(face)
 
 @app.route('/')
 def mirror():
