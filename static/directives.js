@@ -302,17 +302,16 @@ app.directive('power', ['$http','$interval',function ($http, $interval) {
 
             scope.power = function($event, type) {
 
-                    $event.stopPropagation();
+                $event.stopPropagation();
 
-                    $http({
-                        method: "GET",
-                        url: '/power/' + type
-                    }).then(function mySuccess(response) {
+                $http({
+                    method: "GET",
+                    url: '/power/' + type
+                }).then(function mySuccess(response) {
 
-                    }, function myError(response) {
+                }, function myError(response) {
 
-                    });
-                }
+                });
 
 
             }
