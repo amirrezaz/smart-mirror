@@ -302,7 +302,7 @@ app.directive('power', ['$http','$interval',function ($http, $interval) {
 
             scope.power = function($event, type) {
 
-                console.log($event.currentTarget == this)
+                console.log($event.currentTarget.id);
 
                 $http({
                     method : "GET",
