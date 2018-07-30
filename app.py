@@ -8,7 +8,6 @@ from map import distance_matrix
 from camera import capture, record
 from flask import jsonify
 import time
-from utility import screen
 from face_recognition.recognition import recognition
 from screen import screen_power
 
@@ -33,6 +32,7 @@ def mirror():
 
 @app.route('/face')
 def face():
+    from utility import screen
 
     if recognition.face_id is None:
         screen.turn_off()
