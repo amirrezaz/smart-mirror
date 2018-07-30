@@ -5,8 +5,7 @@ from calendars import google_calendar, icloud_calendar
 from news import rss_feed
 from quote import quote_of_the_day
 from map import distance_matrix
-from camera import capture
-from camera import record
+from camera import capture, record
 from flask import jsonify
 import time
 from utility import screen

@@ -3,7 +3,7 @@ from flask import jsonify
 from utility import screen
 
 power = Blueprint('power', __name__, template_folder='templates')
-@capture.route('/power/<type>')
+@power.route('/power/<type>')
 def screen_power(type):
 
     if type == 'off':
