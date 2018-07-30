@@ -1,6 +1,7 @@
 from subprocess import call
 
-class Utility:
+
+class Screen:
 
     def __init__(self):
         self.monitor_on = True
@@ -8,12 +9,12 @@ class Utility:
 
     def turn_off(self):
         if self.monitor_on:
-            # call([])
+            call(['vcgencmd', 'display_power', '0'])
             self.monitor_on = False
 
     def turn_on(self):
         if not self.monitor_on and not self.monitor_off_hard:
-            # call([])
+            call(['vcgencmd', 'display_power', '1'])
             self.monitor_on = True
 
     def turn_off_hard(self):
@@ -24,5 +25,9 @@ class Utility:
         self.monitor_off_hard = False
         self.turn_on()
 
+    @property
+    def is_on(self):
+        return self.monitor_on
 
-utility = Utility()
+
+screen = Screen()

@@ -292,6 +292,30 @@ app.directive('record', ['$http','$interval',function ($http, $interval) {
     };
 }]);
 
+app.directive('power', ['$http','$interval',function ($http, $interval) {
+
+    return {
+        restrict: 'E', // element
+        templateUrl: '/static/power.html',
+
+        link: function (scope, element, attrs) {
+
+            scope.power = function(type) {
+
+                $http({
+                    method : "GET",
+                    url : '/power/' + type
+                }).then(function mySuccess(response) {
+
+                }, function myError(response) {
+
+                });
+            }
+
+        }
+    };
+}]);
+
 app.directive('face', ['$http','$interval',function ($http, $interval) {
 
     return {

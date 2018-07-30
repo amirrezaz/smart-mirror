@@ -9,8 +9,9 @@ from camera import capture
 from camera import record
 from flask import jsonify
 import time
-from utils import utility
+from utility import screen
 from face_recognition.recognition import recognition
+from screen import screen_power
 
 app = Flask(__name__)
 app.register_blueprint(location_weather)
@@ -21,7 +22,7 @@ app.register_blueprint(quote_of_the_day)
 app.register_blueprint(distance_matrix)
 app.register_blueprint(capture)
 app.register_blueprint(record)
-
+app.register_blueprint(screen_power)
 
 @app.route('/')
 def mirror():
@@ -35,9 +36,9 @@ def mirror():
 def face():
 
     if recognition.face_id is None:
-        utility.turn_off()
+        screen.turn_off()
     else:
-        utility.turn_on()
+        screen.turn_on()
 
     return jsonify({
         'id': recognition.face_id

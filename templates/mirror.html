@@ -11,7 +11,7 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='fonts/roboto.css') }}">
 
   </head>
-  <body ng-controller="MirrorCtrl">
+  <body ng-controller="MirrorCtrl" ng-click="power('on')">
   <div style="float:left">
       <div style="margin-bottom:50px">
           <weather locations="southampton,london,tehran"></weather>
@@ -29,9 +29,9 @@
   </div>
   <div style="float:right">
       <div style="margin-bottom: 100px"><clock></clock></div>
-      <div style="margin-bottom: 200px"><capture></capture></div>
-      <div style="clear:both"><record></record></div>
-
+      <div style="margin-bottom: 100px"><capture></capture></div>
+      <div style="margin-bottom: 100px"><record></record></div>
+      <div style="margin-bottom: 100px"><power></power></div>
   </div>
   <div style="text-align: center;margin-left:20%;margin-right:20%">
       <quote></quote>
