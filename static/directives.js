@@ -78,8 +78,10 @@ app.directive('calendars', ['$http','$interval',function ($http, $interval) {
         link: function (scope, element, attrs) {
 
             scope.$on('face_id',function(event,args){
-                console.log(args);
-                scope.show_calendar = scope.owner == args;
+                if (scope.owner == undefined)
+                    scope.show_calendar = true
+                else
+                    scope.show_calendar = scope.owner == args;
             });
 
             function update() {
