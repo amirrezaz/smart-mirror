@@ -27,25 +27,26 @@ def camera_capture():
         time.sleep(1)
     camera.annotate_text = ''
     camera.stop_preview()
-    camera.capture('static/image.jpg')
+    image_name = "{}.jpg".format(datetime.now().strftime('%s'))
+    camera.capture('static/{}'.format(image_name))
     camera.close()
     recognition.start()
 
     return jsonify({
-        'status': 'done'
+        'filename': image_name
     })
 
 
 upload = Blueprint('upload', __name__, template_folder='templates')
-@capture.route('/upload/')
-def camera_upload():
+@capture.route('/upload/{image_name}')
+def camera_upload(image_name):
     config = conf.Config()
     access_token = config.params.get('dropbox',{}).get('access_token', None)
     app_folder = config.params.get('dropbox',{}).get('app_folder', None)
 
     dbx = dropbox.Dropbox(access_token)
 
-    with open("static/image.jpg", "rb") as imageFile:
+    with open("static/{}".format(image_name), "rb") as imageFile:
         f = imageFile.read()
         dbx.files_upload(
             f,
@@ -56,20 +57,20 @@ def camera_upload():
         )
 
     return jsonify({
-        'status': 'done'
+        'image_name': image_name
     })
 
 
 upload_video = Blueprint('upload_video', __name__, template_folder='templates')
-@capture.route('/upload_video/')
-def upload_video():
+@capture.route('/upload_video/{video_name}')
+def upload_video(video_name):
     config = conf.Config()
     access_token = config.params.get('dropbox',{}).get('access_token', None)
     app_folder = config.params.get('dropbox',{}).get('app_folder', None)
 
     dbx = dropbox.Dropbox(access_token)
 
-    with open("static/video.mp4", "rb") as imageFile:
+    with open("static/{}".format(video_name), "rb") as imageFile:
         f = imageFile.read()
         dbx.files_upload(
             f,
@@ -99,10 +100,12 @@ def camera_record():
     camera.stop_preview()
     camera.close()
 
-    subprocess.call(['MP4Box', '-add', 'static/video.h264', 'static/video.mp4'])
+    video_name = "{}.mp4".format(datetime.now().strftime('%s'))
+
+    subprocess.call(['MP4Box', '-add', 'static/video.h264', 'static/{}'.format(video_name)])
 
     recognition.start()
 
     return jsonify({
-        'status': 'done'
+        'video_name': video_name
     })
