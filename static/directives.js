@@ -268,7 +268,7 @@ app.directive('capture', ['$http','$interval',function ($http, $interval) {
                 });
             };
 
-            scope.upload = function() {
+            scope.upload_image = function() {
                 scope.uploading = true;
                 $http({
                     method : "GET",
@@ -308,7 +308,7 @@ app.directive('record', ['$http','$interval',function ($http, $interval) {
                 });
             }
 
-            scope.upload = function() {
+            scope.upload_video = function() {
                 scope.uploading = true;
                 $http({
                     method : "GET",
