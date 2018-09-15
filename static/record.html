@@ -4,7 +4,7 @@
     <div class="modal-content" style="margin: 2% auto;">
         <video width="100%"  controls name="media">
 
-            <source src="{{ url_for('static', filename='static/[[video_name]]') }}" type="video/mp4">
+            <source src="127.0.0.1:5000/static/[[video_name]]" type="video/mp4">
         </video>
         <div style="text-align: center;" ng-click="upload_video(video_name)" class="small" ng-bind="uploading? 'Uploading ...' : 'Upload' "></div>
     </div>
