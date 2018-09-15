@@ -31,18 +31,6 @@ def camera_capture():
     camera.close()
     recognition.start()
 
-    dbx = dropbox.Dropbox(access_token)
-
-    with open("static/image.jpg", "rb") as imageFile:
-        f = imageFile.read()
-        dbx.files_upload(
-            f,
-            '/{app_folder}/{filename}.jpg'.format(
-                app_folder=app_folder,
-                filename=datetime.now().strftime('%s')
-            )
-        )
-
     return jsonify({
         'status': 'done'
     })
@@ -99,35 +87,21 @@ def upload_video():
 record = Blueprint('record', __name__, template_folder='templates')
 @capture.route('/record/')
 def camera_record():
-    config = conf.Config()
-    access_token = config.params.get('dropbox',{}).get('access_token', None)
-    app_folder = config.params.get('dropbox',{}).get('app_folder', None)
 
     recognition.stop()
     camera = PiCamera()
     camera.resolution = (1024, 768)
     camera.start_preview()
 
-    camera.start_recording('video.h264')
+    camera.start_recording('static/video.h264')
     camera.wait_recording(10)
     camera.stop_recording()
     camera.stop_preview()
     camera.close()
+
+    subprocess.call(['MP4Box', '-add', 'static/video.h264', 'static/video.mp4'])
+
     recognition.start()
-
-    subprocess.call(['MP4Box', '-add', 'video.h264', 'video.mp4'])
-
-    dbx = dropbox.Dropbox(access_token)
-
-    with open("static/video.mp4", "rb") as videoFile:
-        f = videoFile.read()
-        dbx.files_upload(
-            f,
-            '/{app_folder}/{filename}.mp4'.format(
-                app_folder=app_folder,
-                filename=datetime.now().strftime('%s')
-            )
-        )
 
     return jsonify({
         'status': 'done'
