@@ -38,7 +38,7 @@ def camera_capture():
 
 
 upload = Blueprint('upload', __name__, template_folder='templates')
-@capture.route('/upload/{image_name}')
+@capture.route('/upload/<image_name>')
 def camera_upload(image_name):
     config = conf.Config()
     access_token = config.params.get('dropbox',{}).get('access_token', None)
@@ -62,7 +62,7 @@ def camera_upload(image_name):
 
 
 upload_video = Blueprint('upload_video', __name__, template_folder='templates')
-@capture.route('/upload_video/{video_name}')
+@capture.route('/upload_video/<video_name>')
 def upload_video(video_name):
     config = conf.Config()
     access_token = config.params.get('dropbox',{}).get('access_token', None)
