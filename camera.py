@@ -14,12 +14,11 @@ import subprocess
 capture = Blueprint('capture', __name__, template_folder='templates')
 @capture.route('/capture/')
 def camera_capture():
-    config = conf.Config()
-    access_token = config.params.get('dropbox',{}).get('access_token', None)
-    app_folder = config.params.get('dropbox',{}).get('app_folder', None)
 
     recognition.stop()
     camera = PiCamera()
+    camera.resolution = (1920, 1080)
+
     camera.start_preview()
     count_down = 5
     while count_down > 0:
@@ -28,13 +27,13 @@ def camera_capture():
         time.sleep(1)
     camera.annotate_text = ''
     camera.stop_preview()
-    camera.capture('image.jpg')
+    camera.capture('static/image.jpg')
     camera.close()
     recognition.start()
 
     dbx = dropbox.Dropbox(access_token)
 
-    with open("image.jpg", "rb") as imageFile:
+    with open("static/image.jpg", "rb") as imageFile:
         f = imageFile.read()
         dbx.files_upload(
             f,
@@ -44,7 +43,55 @@ def camera_capture():
             )
         )
 
-    return jsonify ({
+    return jsonify({
+        'status': 'done'
+    })
+
+
+upload = Blueprint('upload', __name__, template_folder='templates')
+@capture.route('/upload/')
+def camera_upload():
+    config = conf.Config()
+    access_token = config.params.get('dropbox',{}).get('access_token', None)
+    app_folder = config.params.get('dropbox',{}).get('app_folder', None)
+
+    dbx = dropbox.Dropbox(access_token)
+
+    with open("static/image.jpg", "rb") as imageFile:
+        f = imageFile.read()
+        dbx.files_upload(
+            f,
+            '/{app_folder}/{filename}.jpg'.format(
+                app_folder=app_folder,
+                filename=datetime.now().strftime('%s')
+            )
+        )
+
+    return jsonify({
+        'status': 'done'
+    })
+
+
+upload_video = Blueprint('upload_video', __name__, template_folder='templates')
+@capture.route('/upload_video/')
+def upload_video():
+    config = conf.Config()
+    access_token = config.params.get('dropbox',{}).get('access_token', None)
+    app_folder = config.params.get('dropbox',{}).get('app_folder', None)
+
+    dbx = dropbox.Dropbox(access_token)
+
+    with open("static/video.mp4", "rb") as imageFile:
+        f = imageFile.read()
+        dbx.files_upload(
+            f,
+            '/{app_folder}/{filename}.mp4'.format(
+                app_folder=app_folder,
+                filename=datetime.now().strftime('%s')
+            )
+        )
+
+    return jsonify({
         'status': 'done'
     })
 
@@ -72,7 +119,7 @@ def camera_record():
 
     dbx = dropbox.Dropbox(access_token)
 
-    with open("video.mp4", "rb") as videoFile:
+    with open("static/video.mp4", "rb") as videoFile:
         f = videoFile.read()
         dbx.files_upload(
             f,

@@ -1,1 +1,8 @@
 <div ng-click="capture()"><img src="static/icons/camera.png" width="50px;"/></div>
+<div ng-show="show_image" class="modal">
+    <span class="close" ng-click="show_image=false">&times;</span>
+    <div class="modal-content">
+        <img src="static/image.jpg" style="width:100%" ng-click="show_image=false"/>
+        <div style="text-align: center;" ng-click="upload()" class="small" ng-bind="uploading? 'Uploading ...' : 'Upload' "></div>
+    </div>
+</div>

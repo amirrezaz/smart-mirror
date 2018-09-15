@@ -10,12 +10,12 @@ class Screen:
     def turn_off(self):
         if self.monitor_on:
             # call(['vcgencmd', 'display_power', '0'])
-            print '------------- TURN OFF ----------------'
+            # print '------------- TURN OFF ----------------'
             self.monitor_on = False
 
     def turn_on(self):
         if not self.monitor_on and not self.monitor_off_hard:
-            print '*********** TURN ON *********'
+            # print '*********** TURN ON *********'
             # call(['vcgencmd', 'display_power', '1'])
             self.monitor_on = True
 
