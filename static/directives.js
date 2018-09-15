@@ -260,7 +260,7 @@ app.directive('capture', ['$http','$interval',function ($http, $interval) {
                     method : "GET",
                     url : '/capture/'
                 }).then(function mySuccess(response) {
-                    scope.image_name = response.data.mage_name;
+                    scope.image_name = response.data.image_name;
                     scope.show_image = true;
 
                 }, function myError(response) {
