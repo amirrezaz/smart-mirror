@@ -6,3 +6,5 @@ dist
 build
 *.egg-info
 .DS_Store
+credentials
+face_recognition/dataset
