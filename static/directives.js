@@ -260,12 +260,27 @@ app.directive('capture', ['$http','$interval',function ($http, $interval) {
                     method : "GET",
                     url : '/capture/'
                 }).then(function mySuccess(response) {
+                    scope.show_image = true;
 
                 }, function myError(response) {
 
                 });
-            }
+            };
 
+            scope.upload = function() {
+                scope.uploading = true;
+                $http({
+                    method : "GET",
+                    url : '/upload/'
+                }).then(function mySuccess(response) {
+                    scope.show_image = false;
+                    scope.uploading = false;
+
+                }, function myError(response) {
+                    scope.uploading = false;
+
+                });
+            }
         }
     };
 }]);
@@ -284,11 +299,28 @@ app.directive('record', ['$http','$interval',function ($http, $interval) {
                     method : "GET",
                     url : '/record/'
                 }).then(function mySuccess(response) {
+                    scope.show_video = true;
 
                 }, function myError(response) {
 
                 });
             }
+
+            scope.upload = function() {
+                scope.uploading = true;
+                $http({
+                    method : "GET",
+                    url : '/upload_video/'
+                }).then(function mySuccess(response) {
+                    scope.show_video = false;
+                    scope.uploading = false;
+
+                }, function myError(response) {
+                    scope.uploading = false;
+
+                });
+            }
+
 
         }
     };

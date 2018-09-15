@@ -1,1 +1,10 @@
 <div ng-click="record()"><img src="static/icons/record.png" width="50px;" /></div>
+<div ng-show="show_video" class="modal">
+    <span class="close" ng-click="show_video=false">&times;</span>
+    <div class="modal-content">
+        <video width="100%"  controls>
+            <source src="static/video.mp4" type="video/mp4">
+        </video>
+        <div style="text-align: center;" ng-click="upload()" class="small" ng-bind="uploading? 'Uploading ...' : 'Upload' "></div>
+    </div>
+</div>
