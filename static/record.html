@@ -3,7 +3,7 @@
     <span class="close" ng-click="show_video=false">&times;</span>
     <div class="modal-content">
         <video width="100%"  controls>
-            <source src="[[ video_name ]]" type="video/mp4">
+            <source src="static/[[video_name]]" type="video/mp4">
         </video>
         <div style="text-align: center;" ng-click="upload()" class="small" ng-bind="uploading? 'Uploading ...' : 'Upload' "></div>
     </div>
