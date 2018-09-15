@@ -17,7 +17,7 @@ def camera_capture():
 
     recognition.stop()
     camera = PiCamera()
-    camera.resolution = (1920, 1080)
+    camera.resolution = (1280, 720)
 
     camera.start_preview()
     count_down = 5
