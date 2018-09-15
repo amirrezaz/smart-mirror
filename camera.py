@@ -33,7 +33,7 @@ def camera_capture():
     recognition.start()
 
     return jsonify({
-        'filename': image_name
+        'image_name': image_name
     })
 
 
@@ -57,7 +57,7 @@ def camera_upload(image_name):
         )
 
     return jsonify({
-        'image_name': image_name
+        'status': 'done'
     })
 
 

@@ -260,9 +260,7 @@ app.directive('capture', ['$http','$interval',function ($http, $interval) {
                     method : "GET",
                     url : '/capture/'
                 }).then(function mySuccess(response) {
-                    console.log(response);
-                    console.log(reponse.image_name);
-                    scope.image_name = response.image_name;
+                    scope.image_name = response.data.mage_name;
                     scope.show_image = true;
 
                 }, function myError(response) {
@@ -302,7 +300,7 @@ app.directive('record', ['$http','$interval',function ($http, $interval) {
                     method : "GET",
                     url : '/record/'
                 }).then(function mySuccess(response) {
-                    scope.video_name = response.video_name;
+                    scope.video_name = response.data.video_name;
                     scope.show_video = true;
 
                 }, function myError(response) {

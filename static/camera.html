@@ -2,8 +2,7 @@
 <div ng-show="show_image" class="modal">
     <span class="close" ng-click="show_image=false">&times;</span>
     <div class="modal-content">
-        [[ image_name ]]
-        <img src="[[ image_name ]]" style="width:100%" ng-click="show_image=false"/>
+        <img src="static/[[image_name]]" style="width:100%" ng-click="show_image=false"/>
         <div style="text-align: center;" ng-click="upload()" class="small" ng-bind="uploading? 'Uploading ...' : 'Upload' "></div>
     </div>
 </div>
