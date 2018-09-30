@@ -1,12 +1,11 @@
 <div>
     <div ng-repeat="channel in news_channels" ng-class="{'bright xsmall':channel == selected_channel,'normal xsmall' : channel != selected_channel}" ng-click="update(channel);" style="float:left;margin-left:5px;"> [[ channel ]] |</div>
     <div style="clear:both"></div>
-    <div ng-click="show_detail=true" style="margin-top:10px;">
-        <div ng-repeat="news_detail in news | limitTo: 5">
-            <div ng-bind="news_detail.title" class="xsmall"></div>
-        </div>
-        <div ng-bind="error" ng-show="error"></div>
-    </div>
+    <ul ng-click="show_detail=true" style="margin-top:10px;list-style-type:square">
+        <li ng-repeat="news_detail in news | limitTo: 5" ng-bind="news_detail.title" class="xsmall"></li>
+    </ul>
+    <div ng-bind="error" ng-show="error"></div>
+
 </div>
 
 <div ng-show="show_detail" class="modal" ng-click="show_detail=false">
