@@ -7,10 +7,10 @@ face = Blueprint('face', __name__, template_folder='templates')
 @face.route('/face/')
 def face_recognition():
 
-    if recognition.face_id is None:
-        screen.turn_off()
-    else:
-        screen.turn_on()
+    # if recognition.face_id is None:
+    #     screen.turn_off()
+    # else:
+    #     screen.turn_on()
 
     return jsonify({
         'id': recognition.face_id
