@@ -16,8 +16,7 @@ capture = Blueprint('capture', __name__, template_folder='templates')
 def camera_capture():
 
     recognition.stop()
-    camera = PiCamera()
-    camera.resolution = (1280, 720)
+    camera = PiCamera(sensor_mode=4)
 
     camera.start_preview()
     count_down = 5
@@ -90,8 +89,7 @@ record = Blueprint('record', __name__, template_folder='templates')
 def camera_record():
 
     recognition.stop()
-    camera = PiCamera()
-    camera.resolution = (1024, 768)
+    camera = PiCamera(sensor_mode=4)
     camera.start_preview()
 
     camera.start_recording('static/video.h264')
