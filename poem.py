@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import Blueprint, render_template
 import requests
 from flask import jsonify
@@ -16,6 +18,6 @@ def khayyam():
 
     return jsonify({
         'poem': poem,
-        'author': 'خیام'
+        'author': u'خیام'
     })
 
