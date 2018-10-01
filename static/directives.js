@@ -180,6 +180,38 @@ app.directive('quote', ['$http','$interval',function ($http, $interval) {
     };
 }]);
 
+app.directive('poem', ['$http','$interval',function ($http, $interval) {
+
+    return {
+        restrict: 'E', // element
+        templateUrl: '/static/poem.html',
+
+        link: function (scope, element, attrs) {
+
+            scope.update = function() {
+
+                $http({
+                    method : "GET",
+                    url : '/poem/'
+                }).then(function mySuccess(response) {
+                    scope.poem = response.data.poem;
+                    scope.author = response.data.author;
+
+                }, function myError(response) {
+                    scope.error = response.data.error;
+                });
+            }
+
+            scope.update();
+
+            var interval = 60 * 60 * 1000 //60 min
+            $interval(scope.update, interval);
+
+        }
+    };
+}]);
+
+
 app.directive('distance', ['$http','$interval',function ($http, $interval) {
 
     return {

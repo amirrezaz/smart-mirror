@@ -10,6 +10,7 @@ from face import face
 from flask import jsonify
 import time
 from screen import power
+from poem import poem
 from face_recognition.recognition import recognition
 
 app = Flask(__name__)
@@ -23,6 +24,8 @@ app.register_blueprint(capture)
 app.register_blueprint(record)
 app.register_blueprint(power)
 app.register_blueprint(face)
+app.register_blueprint(poem)
+
 
 @app.route('/')
 def mirror():
