@@ -95,7 +95,7 @@ def calendar():
 
         title = event['summary']
         start_date = event['start'].get('dateTime', event['start'].get('date'))
-        start_date_object = datetime.strptime(start_date, '%Y-%m-%dT%H:%M:%SZ')
+        start_date_object = datetime.strptime(start_date[:19], '%Y-%m-%dT%H:%M:%S')
 
         date_formatted = start_date_object.strftime('%a, %d %b')
         date_str = start_date_object.strftime('%Y%m%d')
