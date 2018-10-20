@@ -36,6 +36,7 @@ def calendar():
         start_date_object = datetime(start_date[1],start_date[2],start_date[3],start_date[4],start_date[5])
         end_date_object = datetime(end_date[1],end_date[2],end_date[3],end_date[4],end_date[5])
 
+        start_date_object = start_date_object + timedelta(hours=1)
         date_formatted = start_date_object.strftime('%a, %d %b')
         date_str = start_date_object.strftime('%Y%m%d')
 
@@ -95,7 +96,7 @@ def calendar():
 
         title = event['summary']
         start_date = event['start'].get('dateTime', event['start'].get('date'))
-        start_date_object = datetime.strptime(start_date, '%Y-%m-%dT%H:%M:%SZ')
+        start_date_object = datetime.strptime(start_date[:19], '%Y-%m-%dT%H:%M:%S')
 
         date_formatted = start_date_object.strftime('%a, %d %b')
         date_str = start_date_object.strftime('%Y%m%d')
