@@ -6,12 +6,10 @@ from news import rss_feed
 from quote import quote_of_the_day
 from map import distance_matrix
 from camera import capture, record
-from face import face
 from flask import jsonify
 import time
 from screen import power
 from poem import poem
-from face_recognition.recognition import recognition
 
 app = Flask(__name__)
 app.register_blueprint(location_weather)
@@ -23,7 +21,6 @@ app.register_blueprint(distance_matrix)
 app.register_blueprint(capture)
 app.register_blueprint(record)
 app.register_blueprint(power)
-app.register_blueprint(face)
 app.register_blueprint(poem)
 
 
@@ -34,16 +31,6 @@ def mirror():
         "mirror.html"
     )
 
-# face_id = 1
-
-
-# def recognize():
-#     while True:
-#         global face_id
-#         face_id = 1
-#     return
-
 
 if __name__ == '__main__':
-    recognition.start()
     app.run()

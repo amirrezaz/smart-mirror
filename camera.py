@@ -7,7 +7,6 @@ import dropbox
 from datetime import datetime
 from subprocess import call
 from picamera import PiCamera
-from face_recognition.recognition import recognition
 import time
 import subprocess
 
@@ -15,7 +14,6 @@ capture = Blueprint('capture', __name__, template_folder='templates')
 @capture.route('/capture/')
 def camera_capture():
 
-    recognition.stop()
     camera = PiCamera(sensor_mode=4)
 
     camera.start_preview()
@@ -29,7 +27,6 @@ def camera_capture():
     image_name = "{}.jpg".format(datetime.now().strftime('%s'))
     camera.capture('static/{}'.format(image_name))
     camera.close()
-    recognition.start()
 
     return jsonify({
         'image_name': image_name
@@ -88,7 +85,6 @@ record = Blueprint('record', __name__, template_folder='templates')
 @capture.route('/record/')
 def camera_record():
 
-    recognition.stop()
     camera = PiCamera(sensor_mode=4)
     camera.start_preview()
 
@@ -102,7 +98,6 @@ def camera_record():
 
     subprocess.call(['MP4Box', '-add', 'static/video.h264', 'static/{}'.format(video_name)])
 
-    recognition.start()
 
     return jsonify({
         'video_name': video_name
