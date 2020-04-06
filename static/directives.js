@@ -205,6 +205,86 @@ app.directive('poem', ['$http','$interval',function ($http, $interval) {
 }]);
 
 
+app.directive('covid19', ['$http','$interval',function ($http, $interval) {
+
+    return {
+        restrict: 'E', // element
+        scope: {
+          country: '@'
+        },
+        templateUrl: '/static/covid19.html',
+
+        link: function (scope, element, attrs) {
+
+            scope.update = function() {
+
+                $http({
+                    method : "GET",
+                    url : '/covid19/' + scope.country
+                }).then(function mySuccess(response) {
+
+                    scope.options = {
+                        // scales: {
+                        //   yAxes: [
+                        //     {
+                        //       id: 'y-axis-1',
+                        //       type: 'linear',
+                        //       display: true,
+                        //       position: 'left'
+                        //     },
+                        //     {
+                        //       id: 'y-axis-2',
+                        //       type: 'linear',
+                        //       display: true,
+                        //       position: 'right'
+                        //     }
+                        //   ]
+                        // }
+                        elements: {
+                            point: {
+                                radius: 1,
+                                hoverRadius: 1
+                            }
+                        },
+                        responsive: true,
+                      };
+
+
+                    scope.labels = response.data.confirmed.labels;
+
+                    scope.series = ['confirmed','deaths'];
+
+                    scope.data = [response.data['confirmed']['values_diff'], response.data['deaths']['values_diff']];
+                    scope.colors = ['#FFFFFF', '#D0CECE'];
+
+                    scope.today_confirmed = response.data['confirmed']['values_diff'][response.data['confirmed']['values_diff'].length - 1];
+                    scope.today_deaths = response.data['deaths']['values_diff'][response.data['deaths']['values_diff'].length - 1];
+
+                    scope.total_confirmed = response.data['confirmed']['values'][response.data['confirmed']['values'].length - 1];
+                    scope.total_deaths = response.data['deaths']['values'][response.data['deaths']['values'].length - 1];
+
+                    var yesterday_confirmed = response.data['confirmed']['values_diff'][response.data['confirmed']['values_diff'].length - 2];
+                    var yesterday_deaths = response.data['deaths']['values_diff'][response.data['deaths']['values_diff'].length - 2];
+
+                    scope.diff_confirmed = Math.trunc((scope.today_confirmed / yesterday_confirmed)*100);
+                    scope.diff_deaths = Math.trunc((scope.today_deaths / yesterday_deaths)*100);
+
+
+                }, function myError(response) {
+                    scope.error = response.data.error;
+                })
+            };
+
+
+            scope.update();
+
+            var interval = 10 * 60 * 1000; //20 min
+            $interval(scope.update, interval);
+
+        }
+    };
+}]);
+
 app.directive('distance', ['$http','$interval',function ($http, $interval) {
 
     return {

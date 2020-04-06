@@ -38,6 +38,11 @@ body {
   color: #fff;
 }
 
+.xxsmall {
+  font-size: 10px;
+  line-height: 20px;
+}
+
 .xsmall {
   font-size: 15px;
   line-height: 20px;

@@ -1,4 +1,4 @@
-var app = angular.module("app",[]);
+var app = angular.module("app",["chart.js"]);
 
 
 app.controller("MirrorCtrl", function ($scope, $http, $interval, $timeout) {

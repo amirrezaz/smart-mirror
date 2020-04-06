@@ -1,0 +1,16 @@
+<div style="max-height: 400px">
+    <div class="small">[[ country ]]</div>
+    <div class="separator" style="margin-bottom: 20px"></div>
+
+    <canvas class="chart chart-line" chart-data="data"
+        chart-labels="labels" chart-series="series" chart-options="options" chart-colors="colors">
+    </canvas>
+</div>
+    <table>
+        <tr>
+            <td><div class="xsmall">total confirmed: [[total_confirmed]]</div></td><td><div class="xsmall">total deaths: [[total_deaths]]</div></td>
+        </tr>
+        <tr>
+            <td><div class="xsmall">today confirmed: [[today_confirmed]] <span class="xxsmall">([[diff_confirmed]]%)</span></div></td><td><div class="xsmall">today deaths: [[today_deaths]] <span class="xxsmall">([[diff_deaths]]%)</span></div></td>
+        </tr>
+    </table>
