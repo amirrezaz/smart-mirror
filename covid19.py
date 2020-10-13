@@ -8,7 +8,7 @@ covid19 = Blueprint('covid19', __name__, template_folder='templates')
 def corona(country):
 
     case_types = ['confirmed', 'deaths']
-    url = 'https://api.covid19api.com/total/dayone/country/{country}/status/{case_type}'
+    url = 'https://api.covid19api.com/dayone/country/{country}/status/{case_type}'
 
     labels = []
     values = []
@@ -17,8 +17,9 @@ def corona(country):
         response = requests.get(url=url.format(country=country, case_type=case_type)).json()
         for entry in response:
 
-            labels.append(datetime.strptime(entry['Date'][:10], '%Y-%m-%d').strftime('%b %d'))
-            values.append(entry['Cases'])
+            if entry['Province'] == '':
+                labels.append(datetime.strptime(entry['Date'][:10], '%Y-%m-%d').strftime('%b %d'))
+                values.append(entry['Cases'])
 
         corona_table[case_type] = {
             'labels': labels,
