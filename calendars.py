@@ -96,7 +96,10 @@ def calendar():
 
         title = event['summary']
         start_date = event['start'].get('dateTime', event['start'].get('date'))
-        start_date_object = datetime.strptime(start_date[:19], '%Y-%m-%dT%H:%M:%S')
+        if len(start_date) == 10:
+            start_date_object = datetime.strptime(start_date, '%Y-%m-%d')
+        else:
+            start_date_object = datetime.strptime(start_date[:19], '%Y-%m-%dT%H:%M:%S')
 
         date_formatted = start_date_object.strftime('%a, %d %b')
         date_str = start_date_object.strftime('%Y%m%d')
